@@ -1,9 +1,10 @@
 package users
 
 import (
-	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
 	"time"
 
+	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
+	"github.com/amdrx480/go-clean-architecture-hexagonal/utils"
 	"gorm.io/gorm"
 )
 
@@ -12,8 +13,25 @@ type User struct {
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index"`
+	FullName  string         `json:"fullname"`
+	Username  string         `json:"username"`
 	Email     string         `json:"email" gorm:"unique"`
 	Password  string         `json:"password"`
+	Role      utils.Role     `json:"role" gorm:"type:enum('admin','teacher','user')"`
+}
+
+// buat agar otomatis menyimpan user ke role jika tidak ada pilihan role
+func (rec *User) BeforeCreate(tx *gorm.DB) (err error) {
+	switch rec.Role {
+	case utils.ROLE_ADMIN:
+		rec.Role = utils.ROLE_ADMIN
+	case utils.ROLE_INSTRUCTOR:
+		rec.Role = utils.ROLE_INSTRUCTOR
+	default:
+		rec.Role = utils.ROLE_USER
+	}
+
+	return nil
 }
 
 func (rec *User) ToDomain() users.Domain {
@@ -22,8 +40,11 @@ func (rec *User) ToDomain() users.Domain {
 		CreatedAt: rec.CreatedAt,
 		UpdatedAt: rec.UpdatedAt,
 		DeletedAt: rec.DeletedAt,
+		FullName:  rec.FullName,
+		Username:  rec.Username,
 		Email:     rec.Email,
 		Password:  rec.Password,
+		Role:      rec.Role,
 	}
 }
 
@@ -33,7 +54,10 @@ func FromDomain(domain *users.Domain) *User {
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 		DeletedAt: domain.DeletedAt,
+		FullName:  domain.FullName,
+		Username:  domain.Username,
 		Email:     domain.Email,
 		Password:  domain.Password,
+		Role:      domain.Role,
 	}
 }

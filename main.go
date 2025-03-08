@@ -57,7 +57,7 @@ func main() {
 	routesInit := _routes.ControllerList{
 		LoggerMiddleware: configLogger.Init(),
 		JWTMiddleware:    configJWT.Init(),
-		AuthController:   *userCtrl,
+		UserController:   *userCtrl,
 	}
 
 	routesInit.RegisterRoutes(e)

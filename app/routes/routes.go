@@ -11,16 +11,22 @@ import (
 type ControllerList struct {
 	LoggerMiddleware echo.MiddlewareFunc
 	JWTMiddleware    echojwt.Config
-	AuthController   users.AuthController
+	UserController   users.UserController
 }
 
 func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	e.Use(cl.LoggerMiddleware)
 
-	users := e.Group("/api/v1/users")
+	userRoutes := e.Group("/api/v1/users")
 
-	users.POST("/register", cl.AuthController.Register)
-	users.POST("/login", cl.AuthController.Login)
+	userRoutes.POST("/register", cl.UserController.Register)
+	userRoutes.POST("/login", cl.UserController.Login)
+	userRoutes.GET(
+		"/profile",
+		cl.UserController.GetUserProfile, // Get user profile
+		echojwt.WithConfig(cl.JWTMiddleware),
+		middlewares.VerifyToken,
+	)
 
 	something := e.Group("/api/v1/something", echojwt.WithConfig(cl.JWTMiddleware))
 	something.Use(middlewares.VerifyToken)

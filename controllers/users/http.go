@@ -1,27 +1,28 @@
 package users
 
 import (
+	"net/http"
+
 	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
 	"github.com/amdrx480/go-clean-architecture-hexagonal/controllers"
 	"github.com/amdrx480/go-clean-architecture-hexagonal/controllers/users/request"
 	"github.com/amdrx480/go-clean-architecture-hexagonal/controllers/users/response"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
-type AuthController struct {
-	authUseCase users.Usecase
+type UserController struct {
+	userUseCase users.UseCase
 }
 
-func NewAuthController(authUC users.Usecase) *AuthController {
-	return &AuthController{
-		authUseCase: authUC,
+func NewAuthController(authUC users.UseCase) *UserController {
+	return &UserController{
+		userUseCase: authUC,
 	}
 }
 
-func (ctrl *AuthController) Register(c echo.Context) error {
-	userInput := request.User{}
+func (uc *UserController) Register(c echo.Context) error {
+	userInput := request.UserRegister{}
 	ctx := c.Request().Context()
 
 	if err := c.Bind(&userInput); err != nil {
@@ -34,7 +35,7 @@ func (ctrl *AuthController) Register(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusBadRequest, "failed", "validation failed", "")
 	}
 
-	user, err := ctrl.authUseCase.Register(ctx, userInput.ToDomain())
+	user, err := uc.userUseCase.Register(ctx, userInput.ToDomain())
 
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "error when inserting data", "")
@@ -43,8 +44,8 @@ func (ctrl *AuthController) Register(c echo.Context) error {
 	return controllers.NewResponse(c, http.StatusCreated, "success", "user registered", response.FromDomain(user))
 }
 
-func (ctrl *AuthController) Login(c echo.Context) error {
-	userInput := request.User{}
+func (uc *UserController) Login(c echo.Context) error {
+	userInput := request.UserLogin{}
 	ctx := c.Request().Context()
 
 	if err := c.Bind(&userInput); err != nil {
@@ -57,7 +58,7 @@ func (ctrl *AuthController) Login(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusBadRequest, "failed", "validation failed", "")
 	}
 
-	token, err := ctrl.authUseCase.Login(ctx, userInput.ToDomain())
+	token, err := uc.userUseCase.Login(ctx, userInput.ToDomain())
 
 	var isFailed bool = err != nil || token == ""
 
@@ -66,4 +67,14 @@ func (ctrl *AuthController) Login(c echo.Context) error {
 	}
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "token created", token)
+}
+
+func (uc *UserController) GetUserProfile(c echo.Context) error {
+	user, err := uc.userUseCase.GetUserProfile(c.Request().Context())
+
+	if err != nil {
+		return controllers.NewResponse(c, http.StatusNotFound, "failed", "user not found", "")
+	}
+
+	return controllers.NewResponse(c, http.StatusOK, "success", "user found", response.FromDomain(user))
 }

@@ -14,7 +14,7 @@ import (
 
 var (
 	userRepository _userMock.Repository
-	userService    users.Usecase
+	userService    users.UseCase
 
 	userDomain users.Domain
 	ctx        context.Context

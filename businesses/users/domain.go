@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/amdrx480/go-clean-architecture-hexagonal/utils"
 	"gorm.io/gorm"
 )
 
@@ -12,16 +13,21 @@ type Domain struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt
+	FullName  string
+	Username  string
 	Email     string
 	Password  string
+	Role      utils.Role
 }
 
-type Usecase interface {
+type UseCase interface {
 	Register(ctx context.Context, userDomain *Domain) (Domain, error)
 	Login(ctx context.Context, userDomain *Domain) (string, error)
+	GetUserProfile(ctx context.Context) (Domain, error)
 }
 
 type Repository interface {
 	Register(ctx context.Context, userDomain *Domain) (Domain, error)
 	GetByEmail(ctx context.Context, userDomain *Domain) (Domain, error)
+	GetUserProfile(ctx context.Context) (Domain, error)
 }

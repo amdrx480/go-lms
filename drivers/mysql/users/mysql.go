@@ -2,6 +2,9 @@ package users
 
 import (
 	"context"
+	"errors"
+
+	"github.com/amdrx480/go-clean-architecture-hexagonal/app/middlewares"
 	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
 
 	"golang.org/x/crypto/bcrypt"
@@ -54,6 +57,24 @@ func (ur *userRepository) GetByEmail(ctx context.Context, userDomain *users.Doma
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(userDomain.Password))
+
+	if err != nil {
+		return users.Domain{}, err
+	}
+
+	return user.ToDomain(), nil
+}
+
+func (ur *userRepository) GetUserProfile(ctx context.Context) (users.Domain, error) {
+	id, err := middlewares.GetUserID(ctx)
+
+	if err != nil {
+		return users.Domain{}, errors.New("invalid token")
+	}
+
+	var user User
+
+	err = ur.conn.WithContext(ctx).First(&user, "id = ?", id).Error
 
 	if err != nil {
 		return users.Domain{}, err
