@@ -9,6 +9,8 @@ import (
 	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
 	_userMock "github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users/mocks"
 
+	"github.com/amdrx480/go-clean-architecture-hexagonal/utils"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -23,8 +25,12 @@ var (
 func TestMain(m *testing.M) {
 	userService = users.NewUserUseCase(&userRepository, &middlewares.JWTConfig{})
 	userDomain = users.Domain{
+		ID:       1,
+		FullName: "nameTest",
+		Username: "usernameTest",
 		Email:    "test@test.com",
 		Password: "123123",
+		Role:     utils.ROLE_USER,
 	}
 
 	ctx = context.TODO()
@@ -69,5 +75,31 @@ func TestLogin(t *testing.T) {
 
 		assert.Equal(t, "", result)
 		assert.NotNil(t, err)
+	})
+}
+
+func TestGetUserProfile(t *testing.T) {
+	t.Run("GetUserProfile | Valid", func(t *testing.T) {
+		userRepository.On("GetUserProfile", ctx).Return(userDomain, nil).Once()
+
+		result, err := userService.GetUserProfile(ctx)
+
+		assert.NotNil(t, result)
+		assert.Nil(t, err)
+		assert.Equal(t, userDomain, result)
+
+		userRepository.AssertExpectations(t)
+	})
+
+	t.Run("GetUserProfile | Invalid", func(t *testing.T) {
+		userRepository.On("GetUserProfile", ctx).Return(users.Domain{}, errors.New("failed")).Once()
+
+		result, err := userService.GetUserProfile(ctx)
+
+		assert.Equal(t, users.Domain{}, result)
+		assert.NotNil(t, err)
+		assert.EqualError(t, err, "failed")
+
+		userRepository.AssertExpectations(t)
 	})
 }
