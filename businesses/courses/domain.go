@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/amdrx480/go-lms/businesses/modules"
 	"gorm.io/gorm"
 )
 
@@ -18,6 +19,7 @@ type Domain struct {
 	CategoryID   int
 	Cover        string
 	Instructor   string
+	Modules      []modules.Domain
 }
 
 type UseCase interface {

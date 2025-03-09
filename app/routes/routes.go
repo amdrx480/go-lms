@@ -4,6 +4,7 @@ import (
 	"github.com/amdrx480/go-lms/app/middlewares"
 	"github.com/amdrx480/go-lms/controllers/categories"
 	"github.com/amdrx480/go-lms/controllers/courses"
+	"github.com/amdrx480/go-lms/controllers/modules"
 	"github.com/amdrx480/go-lms/controllers/users"
 
 	echojwt "github.com/labstack/echo-jwt/v4"
@@ -14,6 +15,7 @@ type ControllerList struct {
 	LoggerMiddleware   echo.MiddlewareFunc
 	JWTMiddleware      echojwt.Config
 	CategoryController categories.CategoryController
+	ModuleController   modules.ModuleController
 	CourseController   courses.CourseController
 	UserController     users.UserController
 }
@@ -40,10 +42,20 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	categoryRoutes.PUT("/:id", cl.CategoryController.Update, middlewares.VerifyAdmin)    // Update category by ID
 	categoryRoutes.DELETE("/:id", cl.CategoryController.Delete, middlewares.VerifyAdmin) // Delete category by ID
 
+	// Module Routes
+	moduleRoutes := e.Group("/api/v1/modules", echojwt.WithConfig(cl.JWTMiddleware))
+	moduleRoutes.Use(middlewares.VerifyToken)
+	moduleRoutes.GET("", cl.ModuleController.GetAll)                                 // Get all modules
+	moduleRoutes.GET("/:id", cl.ModuleController.GetByID)                            // Get module by ID
+	moduleRoutes.POST("", cl.ModuleController.Create, middlewares.VerifyAdmin)       // Create new module
+	moduleRoutes.PUT("/:id", cl.ModuleController.Update, middlewares.VerifyAdmin)    // Update module by ID
+	moduleRoutes.DELETE("/:id", cl.ModuleController.Delete, middlewares.VerifyAdmin) // Soft delete module by ID
+
 	// Course Routes
 	courseRoutes := e.Group("/api/v1/courses", echojwt.WithConfig(cl.JWTMiddleware))
 	courseRoutes.Use(middlewares.VerifyToken)
-	courseRoutes.GET("", cl.CourseController.GetAll)                                            // Get all courses
+	// courseRoutes.GET("", cl.CourseController.GetAll)
+	courseRoutes.GET("", cl.CourseController.GetAllWithModules)                                 // Get all courses
 	courseRoutes.GET("/:id", cl.CourseController.GetByID)                                       // Get course by ID
 	courseRoutes.POST("", cl.CourseController.Create, middlewares.VerifyAdmin)                  // Create new course
 	courseRoutes.PUT("/:id", cl.CourseController.Update, middlewares.VerifyAdmin)               // Update course by ID

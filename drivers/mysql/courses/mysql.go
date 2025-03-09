@@ -53,6 +53,15 @@ func (cr *courseRepository) GetByID(ctx context.Context, id int) (courses.Domain
 	return course.ToDomain(), nil
 }
 
+func (cr *courseRepository) GetAll(ctx context.Context) ([]courses.Domain, error) {
+	var courseRecords []Course
+	err := cr.conn.WithContext(ctx).Preload("Category").Preload("Modules").Find(&courseRecords).Error
+	if err != nil {
+		return nil, err
+	}
+	return ToDomainList(courseRecords), nil
+}
+
 func (cr *courseRepository) Update(ctx context.Context, courseDomain *courses.Domain, id int) (courses.Domain, error) {
 	course, err := cr.GetByID(ctx, id)
 
@@ -142,13 +151,4 @@ func (cr *courseRepository) ForceDelete(ctx context.Context, id int) error {
 	}
 
 	return nil
-}
-
-func (cr *courseRepository) GetAll(ctx context.Context) ([]courses.Domain, error) {
-	var courseRecords []Course
-	err := cr.conn.WithContext(ctx).Preload("Category").Preload("Modules.Contents").Find(&courseRecords).Error
-	if err != nil {
-		return nil, err
-	}
-	return ToDomainList(courseRecords), nil
 }

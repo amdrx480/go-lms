@@ -37,6 +37,20 @@ func (cc *CourseController) GetAll(c echo.Context) error {
 	return controllers.NewResponse(c, http.StatusOK, "success", "all courses", courses)
 }
 
+func (cc *CourseController) GetAllWithModules(c echo.Context) error {
+	ctx := c.Request().Context()
+	coursesData, err := cc.courseUseCase.GetAll(ctx)
+
+	if err != nil {
+		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch courses", "")
+	}
+
+	// Mengonversi seluruh data domain ke model respons
+	courses := response.FromDomainWithModulesList(coursesData)
+
+	return controllers.NewResponse(c, http.StatusOK, "success", "all courses", courses)
+}
+
 func (cc *CourseController) GetByID(c echo.Context) error {
 	courseID := c.Param("id")
 	ctx := c.Request().Context()

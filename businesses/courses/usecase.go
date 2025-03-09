@@ -31,12 +31,12 @@ func (usecase *courseUsecase) GetByID(ctx context.Context, id int) (Domain, erro
 	return usecase.courseRepository.GetByID(ctx, id)
 }
 
-func (usecase *courseUsecase) Create(ctx context.Context, courseDomain *Domain) (Domain, error) {
-	return usecase.courseRepository.Create(ctx, courseDomain)
+func (usecase *courseUsecase) Create(ctx context.Context, courseReq *Domain) (Domain, error) {
+	return usecase.courseRepository.Create(ctx, courseReq)
 }
 
-func (usecase *courseUsecase) Update(ctx context.Context, courseDomain *Domain, id int) (Domain, error) {
-	return usecase.courseRepository.Update(ctx, courseDomain, id)
+func (usecase *courseUsecase) Update(ctx context.Context, courseReq *Domain, id int) (Domain, error) {
+	return usecase.courseRepository.Update(ctx, courseReq, id)
 }
 
 func (usecase *courseUsecase) Delete(ctx context.Context, id int) error {

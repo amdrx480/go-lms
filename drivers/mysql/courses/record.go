@@ -4,7 +4,9 @@ import (
 	"time"
 
 	"github.com/amdrx480/go-lms/businesses/courses"
+	"github.com/amdrx480/go-lms/businesses/modules"
 	"github.com/amdrx480/go-lms/drivers/mysql/categories"
+	_modulesDB "github.com/amdrx480/go-lms/drivers/mysql/modules"
 
 	"gorm.io/gorm"
 )
@@ -21,9 +23,17 @@ type Course struct {
 	CategoryID  int                 `json:"category_id"`
 	Cover       string              `json:"cover"`
 	Instructor  string              `json:"instructor"`
+	Modules     []_modulesDB.Module `json:"modules" gorm:"foreignKey:CourseID;constraint:OnDelete:CASCADE"`
 }
 
 func (rec *Course) ToDomain() courses.Domain {
+	modulesDomain := []modules.Domain{}
+
+	// Iterasi rec.Modules untuk memanggil metode ToDomain pada setiap elemen
+	for _, module := range rec.Modules {
+		modulesDomain = append(modulesDomain, module.ToDomain())
+	}
+
 	return courses.Domain{
 		ID:           rec.ID,
 		CreatedAt:    rec.CreatedAt,
@@ -35,6 +45,7 @@ func (rec *Course) ToDomain() courses.Domain {
 		CategoryID:   rec.Category.ID,
 		Cover:        rec.Cover,
 		Instructor:   rec.Instructor,
+		Modules:      modulesDomain,
 	}
 }
 
