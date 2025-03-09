@@ -78,6 +78,7 @@ func TestLogin(t *testing.T) {
 	})
 }
 
+// TestGetUserProfile
 func TestGetUserProfile(t *testing.T) {
 	t.Run("GetUserProfile | Valid", func(t *testing.T) {
 		userRepository.On("GetUserProfile", ctx).Return(userDomain, nil).Once()
