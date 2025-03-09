@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/amdrx480/go-clean-architecture-hexagonal/app/middlewares"
-	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
+	"github.com/amdrx480/go-lms/app/middlewares"
+	"github.com/amdrx480/go-lms/businesses/users"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

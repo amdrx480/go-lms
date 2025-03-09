@@ -1,9 +1,12 @@
 package mysql_driver
 
 import (
-	"github.com/amdrx480/go-clean-architecture-hexagonal/drivers/mysql/users"
 	"fmt"
 	"log"
+
+	"github.com/amdrx480/go-lms/drivers/mysql/categories"
+	"github.com/amdrx480/go-lms/drivers/mysql/courses"
+	"github.com/amdrx480/go-lms/drivers/mysql/users"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -40,7 +43,7 @@ func (config *DBConfig) InitDB() *gorm.DB {
 }
 
 func MigrateDB(db *gorm.DB) {
-	err := db.AutoMigrate(&users.User{})
+	err := db.AutoMigrate(&users.User{}, &courses.Course{}, &categories.Category{})
 
 	if err != nil {
 		log.Fatalf("failed to perform database migration: %s\n", err)

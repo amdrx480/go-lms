@@ -1,4 +1,4 @@
-module github.com/amdrx480/go-clean-architecture-hexagonal
+module github.com/amdrx480/go-lms
 
 go 1.19
 

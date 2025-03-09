@@ -10,16 +10,22 @@ import (
 	"syscall"
 	"time"
 
-	_driverFactory "github.com/amdrx480/go-clean-architecture-hexagonal/drivers"
-	"github.com/amdrx480/go-clean-architecture-hexagonal/utils"
+	_driverFactory "github.com/amdrx480/go-lms/drivers"
+	"github.com/amdrx480/go-lms/utils"
 
-	_userUseCase "github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
-	_userController "github.com/amdrx480/go-clean-architecture-hexagonal/controllers/users"
+	_categoryUseCase "github.com/amdrx480/go-lms/businesses/categories"
+	_categoryController "github.com/amdrx480/go-lms/controllers/categories"
 
-	_dbDriver "github.com/amdrx480/go-clean-architecture-hexagonal/drivers/mysql"
+	_courseUseCase "github.com/amdrx480/go-lms/businesses/courses"
+	_courseController "github.com/amdrx480/go-lms/controllers/courses"
 
-	_middleware "github.com/amdrx480/go-clean-architecture-hexagonal/app/middlewares"
-	_routes "github.com/amdrx480/go-clean-architecture-hexagonal/app/routes"
+	_userUseCase "github.com/amdrx480/go-lms/businesses/users"
+	_userController "github.com/amdrx480/go-lms/controllers/users"
+
+	_dbDriver "github.com/amdrx480/go-lms/drivers/mysql"
+
+	_middleware "github.com/amdrx480/go-lms/app/middlewares"
+	_routes "github.com/amdrx480/go-lms/app/routes"
 
 	echo "github.com/labstack/echo/v4"
 )
@@ -50,14 +56,24 @@ func main() {
 
 	e := echo.New()
 
+	categoryRepo := _driverFactory.NewCategoryRepository(db)
+	categoryUsecase := _categoryUseCase.NewCategoryUseCase(categoryRepo)
+	categoryCtrl := _categoryController.NewCategoryController(categoryUsecase)
+
+	courseRepo := _driverFactory.NewCourseRepository(db)
+	courseUsecase := _courseUseCase.NewCourseUsecase(courseRepo)
+	courseCtrl := _courseController.NewCourseController(courseUsecase)
+
 	userRepo := _driverFactory.NewUserRepository(db)
 	userUsecase := _userUseCase.NewUserUseCase(userRepo, &configJWT)
 	userCtrl := _userController.NewAuthController(userUsecase)
 
 	routesInit := _routes.ControllerList{
-		LoggerMiddleware: configLogger.Init(),
-		JWTMiddleware:    configJWT.Init(),
-		UserController:   *userCtrl,
+		LoggerMiddleware:   configLogger.Init(),
+		JWTMiddleware:      configJWT.Init(),
+		CategoryController: *categoryCtrl,
+		CourseController:   *courseCtrl,
+		UserController:     *userCtrl,
 	}
 
 	routesInit.RegisterRoutes(e)

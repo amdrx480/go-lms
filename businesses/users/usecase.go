@@ -3,7 +3,7 @@ package users
 import (
 	"context"
 
-	"github.com/amdrx480/go-clean-architecture-hexagonal/app/middlewares"
+	"github.com/amdrx480/go-lms/app/middlewares"
 )
 
 type userUseCase struct {

@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
+	"github.com/amdrx480/go-lms/businesses/users"
 
 	"github.com/go-playground/validator/v10"
 )

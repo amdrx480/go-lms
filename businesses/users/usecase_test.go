@@ -5,11 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/amdrx480/go-clean-architecture-hexagonal/app/middlewares"
-	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
-	_userMock "github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users/mocks"
+	"github.com/amdrx480/go-lms/app/middlewares"
+	"github.com/amdrx480/go-lms/businesses/users"
+	_userMock "github.com/amdrx480/go-lms/businesses/users/mocks"
 
-	"github.com/amdrx480/go-clean-architecture-hexagonal/utils"
+	"github.com/amdrx480/go-lms/utils"
 
 	"github.com/stretchr/testify/assert"
 )

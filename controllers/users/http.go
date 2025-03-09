@@ -3,10 +3,10 @@ package users
 import (
 	"net/http"
 
-	"github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
-	"github.com/amdrx480/go-clean-architecture-hexagonal/controllers"
-	"github.com/amdrx480/go-clean-architecture-hexagonal/controllers/users/request"
-	"github.com/amdrx480/go-clean-architecture-hexagonal/controllers/users/response"
+	"github.com/amdrx480/go-lms/businesses/users"
+	"github.com/amdrx480/go-lms/controllers"
+	"github.com/amdrx480/go-lms/controllers/users/request"
+	"github.com/amdrx480/go-lms/controllers/users/response"
 
 	"github.com/labstack/echo/v4"
 )

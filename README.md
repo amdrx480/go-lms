@@ -83,7 +83,7 @@ Aplikasi ini menggunakan arsitektur Clean Architecture dengan pendekatan Hexagon
 1. Clone Repository
 
 ```bash
-git clone https://github.com/amdrx480/go-clean-architecture-hexagonal.git
+git clone https://github.com/amdrx480/go-lms.git
 cd go-clean-architecture-hexagonal
 ```
 

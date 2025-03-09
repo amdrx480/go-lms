@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	users "github.com/amdrx480/go-clean-architecture-hexagonal/businesses/users"
+	users "github.com/amdrx480/go-lms/businesses/users"
 	mock "github.com/stretchr/testify/mock"
 )
 
