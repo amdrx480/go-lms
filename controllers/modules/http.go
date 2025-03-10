@@ -61,6 +61,20 @@ func (mc *ModuleController) GetAll(c echo.Context) error {
 	return controllers.NewResponse(c, http.StatusOK, "success", "all modules", modules)
 }
 
+func (mc *ModuleController) GetAllWithChapter(c echo.Context) error {
+	ctx := c.Request().Context()
+	coursesData, err := mc.moduleUseCase.GetAll(ctx)
+
+	if err != nil {
+		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch modules", "")
+	}
+
+	// Mengonversi seluruh data domain ke model respons
+	courses := response.FromDomainWithChapterList(coursesData)
+
+	return controllers.NewResponse(c, http.StatusOK, "success", "all modules", courses)
+}
+
 func (mc *ModuleController) GetByID(c echo.Context) error {
 	moduleID := c.Param("id")
 	ctx := c.Request().Context()

@@ -37,7 +37,7 @@ func (cc *CourseController) GetAll(c echo.Context) error {
 	return controllers.NewResponse(c, http.StatusOK, "success", "all courses", courses)
 }
 
-func (cc *CourseController) GetAllWithModules(c echo.Context) error {
+func (cc *CourseController) GetAllWithModule(c echo.Context) error {
 	ctx := c.Request().Context()
 	coursesData, err := cc.courseUseCase.GetAll(ctx)
 
@@ -46,7 +46,7 @@ func (cc *CourseController) GetAllWithModules(c echo.Context) error {
 	}
 
 	// Mengonversi seluruh data domain ke model respons
-	courses := response.FromDomainWithModulesList(coursesData)
+	courses := response.FromDomainWithModuleList(coursesData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all courses", courses)
 }

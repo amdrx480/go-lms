@@ -16,6 +16,9 @@ import (
 	_categoryUseCase "github.com/amdrx480/go-lms/businesses/categories"
 	_categoryController "github.com/amdrx480/go-lms/controllers/categories"
 
+	_chapterUseCase "github.com/amdrx480/go-lms/businesses/chapters"
+	_chapterController "github.com/amdrx480/go-lms/controllers/chapters"
+
 	_moduleUseCase "github.com/amdrx480/go-lms/businesses/modules"
 	_moduleController "github.com/amdrx480/go-lms/controllers/modules"
 
@@ -63,6 +66,10 @@ func main() {
 	categoryUsecase := _categoryUseCase.NewCategoryUseCase(categoryRepo)
 	categoryCtrl := _categoryController.NewCategoryController(categoryUsecase)
 
+	chapterRepo := _driverFactory.NewChapterRepository(db)
+	chapterUsecase := _chapterUseCase.NewChapterUseCase(chapterRepo)
+	chapterCtrl := _chapterController.NewChapterController(chapterUsecase)
+
 	moduleRepo := _driverFactory.NewModuleRepository(db)
 	moduleUsecase := _moduleUseCase.NewModuleUseCase(moduleRepo)
 	moduleCtrl := _moduleController.NewModuleController(moduleUsecase)
@@ -79,8 +86,9 @@ func main() {
 		LoggerMiddleware:   configLogger.Init(),
 		JWTMiddleware:      configJWT.Init(),
 		CategoryController: *categoryCtrl,
-		CourseController:   *courseCtrl,
+		ChapterController:  *chapterCtrl,
 		ModuleController:   *moduleCtrl,
+		CourseController:   *courseCtrl,
 		UserController:     *userCtrl,
 	}
 

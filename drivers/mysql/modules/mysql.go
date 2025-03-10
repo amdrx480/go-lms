@@ -36,7 +36,7 @@ func (mr *moduleRepository) Create(ctx context.Context, moduleReq *modules.Domai
 func (mr *moduleRepository) GetAll(ctx context.Context) ([]modules.Domain, error) {
 	var moduleRecords []Module
 
-	if err := mr.conn.WithContext(ctx).Find(&moduleRecords).Error; err != nil {
+	if err := mr.conn.WithContext(ctx).Preload("Chapter").Find(&moduleRecords).Error; err != nil {
 		return nil, err
 	}
 

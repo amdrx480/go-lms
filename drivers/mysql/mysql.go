@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/amdrx480/go-lms/drivers/mysql/categories"
+	"github.com/amdrx480/go-lms/drivers/mysql/chapters"
 	"github.com/amdrx480/go-lms/drivers/mysql/courses"
 	"github.com/amdrx480/go-lms/drivers/mysql/modules"
 	"github.com/amdrx480/go-lms/drivers/mysql/users"
@@ -44,7 +45,7 @@ func (config *DBConfig) InitDB() *gorm.DB {
 }
 
 func MigrateDB(db *gorm.DB) {
-	err := db.AutoMigrate(&users.User{}, &courses.Course{}, &modules.Module{}, &categories.Category{})
+	err := db.AutoMigrate(&users.User{}, &courses.Course{}, &modules.Module{}, &chapters.Chapter{}, &categories.Category{})
 
 	if err != nil {
 		log.Fatalf("failed to perform database migration: %s\n", err)

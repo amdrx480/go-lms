@@ -4,6 +4,9 @@ import (
 	categoryDomain "github.com/amdrx480/go-lms/businesses/categories"
 	categoryDB "github.com/amdrx480/go-lms/drivers/mysql/categories"
 
+	chapterDomain "github.com/amdrx480/go-lms/businesses/chapters"
+	chapterDB "github.com/amdrx480/go-lms/drivers/mysql/chapters"
+
 	moduleDomain "github.com/amdrx480/go-lms/businesses/modules"
 	moduleDB "github.com/amdrx480/go-lms/drivers/mysql/modules"
 
@@ -18,6 +21,10 @@ import (
 
 func NewCategoryRepository(conn *gorm.DB) categoryDomain.Repository {
 	return categoryDB.NewMySQLRepository(conn)
+}
+
+func NewChapterRepository(conn *gorm.DB) chapterDomain.Repository {
+	return chapterDB.NewMySQLChapterRepository(conn)
 }
 
 func NewModuleRepository(conn *gorm.DB) moduleDomain.Repository {

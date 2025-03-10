@@ -45,7 +45,7 @@ func FromDomainList(coursesData []courses.Domain) []Course {
 	return courses
 }
 
-func FromDomainWithModules(domain courses.Domain) Course {
+func FromDomainWithModule(domain courses.Domain) Course {
 	// Menggunakan FromDomainList untuk mengonversi modules
 	modules := response.FromDomainList(domain.Modules)
 	return Course{
@@ -63,10 +63,10 @@ func FromDomainWithModules(domain courses.Domain) Course {
 	}
 }
 
-func FromDomainWithModulesList(domains []courses.Domain) []Course {
+func FromDomainWithModuleList(domains []courses.Domain) []Course {
 	var courses []Course
 	for _, domain := range domains {
-		courses = append(courses, FromDomainWithModules(domain))
+		courses = append(courses, FromDomainWithModule(domain))
 	}
 	return courses
 }

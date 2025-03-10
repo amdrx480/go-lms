@@ -29,7 +29,7 @@ type Course struct {
 func (rec *Course) ToDomain() courses.Domain {
 	modulesDomain := []modules.Domain{}
 
-	// Iterasi rec.Modules untuk memanggil metode ToDomain pada setiap elemen
+	// Iterasi rec.Module untuk memanggil metode ToDomain pada setiap elemen
 	for _, module := range rec.Modules {
 		modulesDomain = append(modulesDomain, module.ToDomain())
 	}
