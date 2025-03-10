@@ -36,7 +36,7 @@ func (mr *chapterRepository) Create(ctx context.Context, chapterReq *chapters.Do
 func (mr *chapterRepository) GetAll(ctx context.Context) ([]chapters.Domain, error) {
 	var chapterRecords []Chapter
 
-	if err := mr.conn.WithContext(ctx).Find(&chapterRecords).Error; err != nil {
+	if err := mr.conn.WithContext(ctx).Preload("Lesson").Find(&chapterRecords).Error; err != nil {
 		return nil, err
 	}
 

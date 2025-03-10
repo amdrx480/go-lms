@@ -52,11 +52,8 @@ func (cc *ChapterController) GetAll(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch chapters", "")
 	}
 
-	chapters := []response.Chapter{}
-
-	for _, chapter := range chaptersData {
-		chapters = append(chapters, response.FromDomain(chapter))
-	}
+	// Mengonversi seluruh data domain ke model respons
+	chapters := response.FromDomainWithChapterList(chaptersData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all chapters", chapters)
 }

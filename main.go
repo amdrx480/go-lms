@@ -19,11 +19,14 @@ import (
 	_chapterUseCase "github.com/amdrx480/go-lms/businesses/chapters"
 	_chapterController "github.com/amdrx480/go-lms/controllers/chapters"
 
-	_moduleUseCase "github.com/amdrx480/go-lms/businesses/modules"
-	_moduleController "github.com/amdrx480/go-lms/controllers/modules"
-
 	_courseUseCase "github.com/amdrx480/go-lms/businesses/courses"
 	_courseController "github.com/amdrx480/go-lms/controllers/courses"
+
+	_lessonUseCase "github.com/amdrx480/go-lms/businesses/lessons"
+	_lessonController "github.com/amdrx480/go-lms/controllers/lessons"
+
+	_moduleUseCase "github.com/amdrx480/go-lms/businesses/modules"
+	_moduleController "github.com/amdrx480/go-lms/controllers/modules"
 
 	_userUseCase "github.com/amdrx480/go-lms/businesses/users"
 	_userController "github.com/amdrx480/go-lms/controllers/users"
@@ -70,13 +73,17 @@ func main() {
 	chapterUsecase := _chapterUseCase.NewChapterUseCase(chapterRepo)
 	chapterCtrl := _chapterController.NewChapterController(chapterUsecase)
 
-	moduleRepo := _driverFactory.NewModuleRepository(db)
-	moduleUsecase := _moduleUseCase.NewModuleUseCase(moduleRepo)
-	moduleCtrl := _moduleController.NewModuleController(moduleUsecase)
-
 	courseRepo := _driverFactory.NewCourseRepository(db)
 	courseUsecase := _courseUseCase.NewCourseUsecase(courseRepo)
 	courseCtrl := _courseController.NewCourseController(courseUsecase)
+
+	lessonRepo := _driverFactory.NewLessonRepository(db)
+	lessonUsecase := _lessonUseCase.NewLessonUseCase(lessonRepo)
+	lessonCtrl := _lessonController.NewLessonController(lessonUsecase)
+
+	moduleRepo := _driverFactory.NewModuleRepository(db)
+	moduleUsecase := _moduleUseCase.NewModuleUseCase(moduleRepo)
+	moduleCtrl := _moduleController.NewModuleController(moduleUsecase)
 
 	userRepo := _driverFactory.NewUserRepository(db)
 	userUsecase := _userUseCase.NewUserUseCase(userRepo, &configJWT)
@@ -87,8 +94,9 @@ func main() {
 		JWTMiddleware:      configJWT.Init(),
 		CategoryController: *categoryCtrl,
 		ChapterController:  *chapterCtrl,
-		ModuleController:   *moduleCtrl,
 		CourseController:   *courseCtrl,
+		LessonController:   *lessonCtrl,
+		ModuleController:   *moduleCtrl,
 		UserController:     *userCtrl,
 	}
 

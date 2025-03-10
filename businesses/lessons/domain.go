@@ -1,10 +1,9 @@
-package chapters
+package lessons
 
 import (
 	"context"
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/lessons"
 	"gorm.io/gorm"
 )
 
@@ -13,9 +12,10 @@ type Domain struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *gorm.DeletedAt
-	ModuleID  int
+	ChapterID int
 	Title     string
-	Lessons   []lessons.Domain
+	Content   string
+	VideoURL  string
 }
 
 type UseCase interface {

@@ -63,14 +63,14 @@ func (mc *ModuleController) GetAll(c echo.Context) error {
 
 func (mc *ModuleController) GetAllWithChapter(c echo.Context) error {
 	ctx := c.Request().Context()
-	coursesData, err := mc.moduleUseCase.GetAll(ctx)
+	modulesData, err := mc.moduleUseCase.GetAll(ctx)
 
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch modules", "")
 	}
 
 	// Mengonversi seluruh data domain ke model respons
-	courses := response.FromDomainWithChapterList(coursesData)
+	courses := response.FromDomainWithChapterList(modulesData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all modules", courses)
 }

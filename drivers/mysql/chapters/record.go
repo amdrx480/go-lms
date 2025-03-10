@@ -2,6 +2,8 @@ package chapters
 
 import (
 	"github.com/amdrx480/go-lms/businesses/chapters"
+	"github.com/amdrx480/go-lms/businesses/lessons"
+	_lessonsDB "github.com/amdrx480/go-lms/drivers/mysql/lessons"
 
 	"time"
 
@@ -9,15 +11,22 @@ import (
 )
 
 type Chapter struct {
-	ID        int             `json:"id" gorm:"primaryKey"`
-	CreatedAt time.Time       `json:"created_at"`
-	UpdatedAt time.Time       `json:"updated_at"`
-	DeletedAt *gorm.DeletedAt `json:"deleted_at" gorm:"index"`
-	ModuleID  int             `json:"course_id" gorm:"index;not null"`
-	Title     string          `json:"title"`
+	ID        int                 `json:"id" gorm:"primaryKey"`
+	CreatedAt time.Time           `json:"created_at"`
+	UpdatedAt time.Time           `json:"updated_at"`
+	DeletedAt *gorm.DeletedAt     `json:"deleted_at" gorm:"index"`
+	ModuleID  int                 `json:"course_id" gorm:"index;not null"`
+	Title     string              `json:"title"`
+	Lesson    []_lessonsDB.Lesson `json:"lessons" gorm:"foreignKey:ChapterID;constraint:OnDelete:CASCADE"`
 }
 
 func (rec *Chapter) ToDomain() chapters.Domain {
+	lessonsDomain := []lessons.Domain{}
+	// Iterasi rec.Chapters untuk memanggil metode ToDomain pada setiap elemen
+	for _, lesson := range rec.Lesson {
+		lessonsDomain = append(lessonsDomain, lesson.ToDomain())
+	}
+
 	return chapters.Domain{
 		ID:        rec.ID,
 		CreatedAt: rec.CreatedAt,
@@ -25,6 +34,7 @@ func (rec *Chapter) ToDomain() chapters.Domain {
 		DeletedAt: rec.DeletedAt,
 		ModuleID:  rec.ModuleID,
 		Title:     rec.Title,
+		Lessons:   lessonsDomain,
 	}
 }
 
