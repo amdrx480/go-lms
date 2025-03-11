@@ -10,6 +10,9 @@ import (
 	courseDomain "github.com/amdrx480/go-lms/businesses/courses"
 	courseDB "github.com/amdrx480/go-lms/drivers/mysql/courses"
 
+	documentDomain "github.com/amdrx480/go-lms/businesses/documents"
+	documentDB "github.com/amdrx480/go-lms/drivers/mysql/documents"
+
 	lessonDomain "github.com/amdrx480/go-lms/businesses/lessons"
 	lessonDB "github.com/amdrx480/go-lms/drivers/mysql/lessons"
 
@@ -23,7 +26,7 @@ import (
 )
 
 func NewCategoryRepository(conn *gorm.DB) categoryDomain.Repository {
-	return categoryDB.NewMySQLRepository(conn)
+	return categoryDB.NewMySQLCategoryRepository(conn)
 }
 
 func NewChapterRepository(conn *gorm.DB) chapterDomain.Repository {
@@ -32,6 +35,10 @@ func NewChapterRepository(conn *gorm.DB) chapterDomain.Repository {
 
 func NewCourseRepository(conn *gorm.DB) courseDomain.Repository {
 	return courseDB.NewMySQLRepository(conn)
+}
+
+func NewDocumentRepository(conn *gorm.DB) documentDomain.Repository {
+	return documentDB.NewMySQLDocumentRepository(conn)
 }
 
 func NewLessonRepository(conn *gorm.DB) lessonDomain.Repository {

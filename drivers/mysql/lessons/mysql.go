@@ -36,7 +36,7 @@ func (mr *lessonRepository) Create(ctx context.Context, lessonReq *lessons.Domai
 func (mr *lessonRepository) GetAll(ctx context.Context) ([]lessons.Domain, error) {
 	var lessonRecords []Lesson
 
-	if err := mr.conn.WithContext(ctx).Find(&lessonRecords).Error; err != nil {
+	if err := mr.conn.WithContext(ctx).Preload("Documents").Find(&lessonRecords).Error; err != nil {
 		return nil, err
 	}
 

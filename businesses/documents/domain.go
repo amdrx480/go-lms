@@ -1,10 +1,9 @@
-package lessons
+package documents
 
 import (
 	"context"
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/documents"
 	"gorm.io/gorm"
 )
 
@@ -13,25 +12,24 @@ type Domain struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *gorm.DeletedAt
-	ChapterID int
+	LessonID  int
 	Title     string
-	Content   string
-	VideoURL  string
-	Documents []documents.Domain
+	FileName  string
+	FilePath  string
 }
 
 type UseCase interface {
-	Create(ctx context.Context, lessonReq *Domain) (Domain, error)
+	Create(ctx context.Context, documentReq *Domain) (Domain, error)
 	GetAll(ctx context.Context) ([]Domain, error)
 	GetByID(ctx context.Context, id int) (Domain, error)
-	Update(ctx context.Context, lessonReq *Domain, id int) (Domain, error)
+	Update(ctx context.Context, documentReq *Domain, id int) (Domain, error)
 	Delete(ctx context.Context, id int) error
 }
 
 type Repository interface {
-	Create(ctx context.Context, lessonReq *Domain) (Domain, error)
+	Create(ctx context.Context, documentReq *Domain) (Domain, error)
 	GetAll(ctx context.Context) ([]Domain, error)
 	GetByID(ctx context.Context, id int) (Domain, error)
-	Update(ctx context.Context, lessonReq *Domain, id int) (Domain, error)
+	Update(ctx context.Context, documentReq *Domain, id int) (Domain, error)
 	Delete(ctx context.Context, id int) error
 }

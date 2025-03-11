@@ -52,11 +52,8 @@ func (lc *LessonController) GetAll(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch lessons", "")
 	}
 
-	lessons := []response.Lesson{}
-
-	for _, lesson := range lessonsData {
-		lessons = append(lessons, response.FromDomain(lesson))
-	}
+	// Mengonversi seluruh data domain ke model respons
+	lessons := response.FromDomainWithDocumentList(lessonsData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all lessons", lessons)
 }

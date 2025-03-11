@@ -2,6 +2,7 @@ package categories
 
 import (
 	"context"
+
 	"github.com/amdrx480/go-lms/businesses/categories"
 
 	"gorm.io/gorm"
@@ -11,7 +12,7 @@ type categoryRepository struct {
 	conn *gorm.DB
 }
 
-func NewMySQLRepository(conn *gorm.DB) categories.Repository {
+func NewMySQLCategoryRepository(conn *gorm.DB) categories.Repository {
 	return &categoryRepository{
 		conn: conn,
 	}

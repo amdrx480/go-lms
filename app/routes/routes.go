@@ -5,6 +5,7 @@ import (
 	"github.com/amdrx480/go-lms/controllers/categories"
 	"github.com/amdrx480/go-lms/controllers/chapters"
 	"github.com/amdrx480/go-lms/controllers/courses"
+	"github.com/amdrx480/go-lms/controllers/documents"
 	"github.com/amdrx480/go-lms/controllers/lessons"
 	"github.com/amdrx480/go-lms/controllers/modules"
 	"github.com/amdrx480/go-lms/controllers/users"
@@ -19,6 +20,7 @@ type ControllerList struct {
 	CategoryController categories.CategoryController
 	ChapterController  chapters.ChapterController
 	CourseController   courses.CourseController
+	DocumentController documents.DocumentController
 	LessonController   lessons.LessonController
 	ModuleController   modules.ModuleController
 	UserController     users.UserController
@@ -66,14 +68,23 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	courseRoutes.POST("/:id", cl.CourseController.Restore, middlewares.VerifyAdmin)             // Restore soft-deleted course
 	courseRoutes.DELETE("/:id/force", cl.CourseController.ForceDelete, middlewares.VerifyAdmin) // Permanently delete course
 
+	// Document Routes
+	DocumentRoutes := e.Group("/api/v1/documents", echojwt.WithConfig(cl.JWTMiddleware))
+	DocumentRoutes.Use(middlewares.VerifyToken)
+	DocumentRoutes.GET("", cl.DocumentController.GetAll)                                 // Get all documents
+	DocumentRoutes.GET("/:id", cl.DocumentController.GetByID)                            // Get document by ID
+	DocumentRoutes.POST("", cl.DocumentController.Create, middlewares.VerifyAdmin)       // Create new document
+	DocumentRoutes.PUT("/:id", cl.DocumentController.Update, middlewares.VerifyAdmin)    // Update document by ID
+	DocumentRoutes.DELETE("/:id", cl.DocumentController.Delete, middlewares.VerifyAdmin) // Soft delete document by ID
+
 	// Lesson Routes
 	LessonRoutes := e.Group("/api/v1/lessons", echojwt.WithConfig(cl.JWTMiddleware))
 	LessonRoutes.Use(middlewares.VerifyToken)
-	LessonRoutes.GET("", cl.LessonController.GetAll)                                 // Get all chapters
-	LessonRoutes.GET("/:id", cl.LessonController.GetByID)                            // Get chapter by ID
-	LessonRoutes.POST("", cl.LessonController.Create, middlewares.VerifyAdmin)       // Create new chapter
-	LessonRoutes.PUT("/:id", cl.LessonController.Update, middlewares.VerifyAdmin)    // Update chapter by ID
-	LessonRoutes.DELETE("/:id", cl.LessonController.Delete, middlewares.VerifyAdmin) // Soft delete chapter by ID
+	LessonRoutes.GET("", cl.LessonController.GetAll)                                 // Get all lessons
+	LessonRoutes.GET("/:id", cl.LessonController.GetByID)                            // Get lesson by ID
+	LessonRoutes.POST("", cl.LessonController.Create, middlewares.VerifyAdmin)       // Create new lesson
+	LessonRoutes.PUT("/:id", cl.LessonController.Update, middlewares.VerifyAdmin)    // Update lesson by ID
+	LessonRoutes.DELETE("/:id", cl.LessonController.Delete, middlewares.VerifyAdmin) // Soft delete lesson by ID
 
 	// Module Routes
 	moduleRoutes := e.Group("/api/v1/modules", echojwt.WithConfig(cl.JWTMiddleware))

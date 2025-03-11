@@ -22,6 +22,9 @@ import (
 	_courseUseCase "github.com/amdrx480/go-lms/businesses/courses"
 	_courseController "github.com/amdrx480/go-lms/controllers/courses"
 
+	_documentUseCase "github.com/amdrx480/go-lms/businesses/documents"
+	_documentController "github.com/amdrx480/go-lms/controllers/documents"
+
 	_lessonUseCase "github.com/amdrx480/go-lms/businesses/lessons"
 	_lessonController "github.com/amdrx480/go-lms/controllers/lessons"
 
@@ -51,7 +54,6 @@ func main() {
 	}
 
 	db := configDB.InitDB()
-
 	_dbDriver.MigrateDB(db)
 
 	configJWT := _middleware.JWTConfig{
@@ -77,6 +79,10 @@ func main() {
 	courseUsecase := _courseUseCase.NewCourseUsecase(courseRepo)
 	courseCtrl := _courseController.NewCourseController(courseUsecase)
 
+	documentRepo := _driverFactory.NewDocumentRepository(db)
+	documentUsecase := _documentUseCase.NewDocumentUseCase(documentRepo)
+	documentCtrl := _documentController.NewDocumentController(documentUsecase)
+
 	lessonRepo := _driverFactory.NewLessonRepository(db)
 	lessonUsecase := _lessonUseCase.NewLessonUseCase(lessonRepo)
 	lessonCtrl := _lessonController.NewLessonController(lessonUsecase)
@@ -95,6 +101,7 @@ func main() {
 		CategoryController: *categoryCtrl,
 		ChapterController:  *chapterCtrl,
 		CourseController:   *courseCtrl,
+		DocumentController: *documentCtrl,
 		LessonController:   *lessonCtrl,
 		ModuleController:   *moduleCtrl,
 		UserController:     *userCtrl,
