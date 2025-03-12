@@ -40,6 +40,7 @@ import (
 	_routes "github.com/amdrx480/go-lms/app/routes"
 
 	echo "github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type operation func(ctx context.Context) error
@@ -66,6 +67,13 @@ func main() {
 	}
 
 	e := echo.New()
+
+	// Middleware CORS
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:3000", "http://192.168.58.1:3000"}, // *Ganti/Tambahkan domain sesuai kebutuhan
+		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
+	}))
 
 	categoryRepo := _driverFactory.NewCategoryRepository(db)
 	categoryUsecase := _categoryUseCase.NewCategoryUseCase(categoryRepo)
