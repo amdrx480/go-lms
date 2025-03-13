@@ -62,7 +62,6 @@ func (cr *categoryRepository) Create(ctx context.Context, categoryDomain *catego
 
 func (cr *categoryRepository) Update(ctx context.Context, categoryDomain *categories.Domain, id int) (categories.Domain, error) {
 	category, err := cr.GetByID(ctx, id)
-
 	if err != nil {
 		return categories.Domain{}, err
 	}
@@ -70,6 +69,7 @@ func (cr *categoryRepository) Update(ctx context.Context, categoryDomain *catego
 	updatedCategory := FromDomain(&category)
 
 	updatedCategory.Name = categoryDomain.Name
+	updatedCategory.Slug = categoryDomain.Slug // Pastikan slug ikut diperbarui
 
 	if err := cr.conn.WithContext(ctx).Save(&updatedCategory).Error; err != nil {
 		return categories.Domain{}, err

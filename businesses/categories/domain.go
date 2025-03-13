@@ -13,6 +13,7 @@ type Domain struct {
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt
 	Name      string
+	Slug      string
 }
 
 type Usecase interface {

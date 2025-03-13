@@ -14,6 +14,7 @@ type Category struct {
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index"`
 	Name      string         `json:"name"`
+	Slug      string         `json:"Slug"`
 }
 
 func FromDomain(domain categories.Domain) Category {
@@ -23,6 +24,7 @@ func FromDomain(domain categories.Domain) Category {
 		UpdatedAt: domain.UpdatedAt,
 		DeletedAt: domain.DeletedAt,
 		Name:      domain.Name,
+		Slug:      domain.Slug,
 	}
 }
 
