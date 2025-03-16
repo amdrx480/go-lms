@@ -12,7 +12,7 @@ type Domain struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt
-	Name      string
+	Title     string
 	Slug      string
 }
 

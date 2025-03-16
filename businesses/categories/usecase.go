@@ -25,7 +25,7 @@ func (usecase *categoryUseCase) GetByID(ctx context.Context, id int) (Domain, er
 }
 
 func (usecase *categoryUseCase) Create(ctx context.Context, categoryReq *Domain) (Domain, error) {
-	categoryReq.Slug = utils.GenerateSlug(categoryReq.Name)
+	categoryReq.Slug = utils.GenerateSlug(categoryReq.Title)
 	return usecase.categoryRepository.Create(ctx, categoryReq)
 }
 
@@ -36,8 +36,8 @@ func (usecase *categoryUseCase) Update(ctx context.Context, categoryReq *Domain,
 	}
 
 	// Jika Name berubah, regenerasi slug
-	if categoryReq.Name != existingCategory.Name {
-		categoryReq.Slug = utils.GenerateSlug(categoryReq.Name)
+	if categoryReq.Title != existingCategory.Title {
+		categoryReq.Slug = utils.GenerateSlug(categoryReq.Title)
 	} else {
 		categoryReq.Slug = existingCategory.Slug // Gunakan slug lama jika nama sama
 	}

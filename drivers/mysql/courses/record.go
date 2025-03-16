@@ -35,17 +35,17 @@ func (rec *Course) ToDomain() courses.Domain {
 	}
 
 	return courses.Domain{
-		ID:           rec.ID,
-		CreatedAt:    rec.CreatedAt,
-		UpdatedAt:    rec.UpdatedAt,
-		DeletedAt:    rec.DeletedAt,
-		Title:        rec.Title,
-		Description:  rec.Description,
-		CategoryName: rec.Category.Name,
-		CategoryID:   rec.Category.ID,
-		Cover:        rec.Cover,
-		Instructor:   rec.Instructor,
-		Modules:      modulesDomain,
+		ID:            rec.ID,
+		CreatedAt:     rec.CreatedAt,
+		UpdatedAt:     rec.UpdatedAt,
+		DeletedAt:     rec.DeletedAt,
+		Title:         rec.Title,
+		Description:   rec.Description,
+		CategoryTitle: rec.Category.Title,
+		CategoryID:    rec.Category.ID,
+		Cover:         rec.Cover,
+		Instructor:    rec.Instructor,
+		Modules:       modulesDomain,
 	}
 }
 

@@ -31,7 +31,7 @@ func FromDomain(domain courses.Domain) Course {
 		Title:        domain.Title,
 		Description:  domain.Description,
 		CategoryID:   domain.CategoryID,
-		CategoryName: domain.CategoryName,
+		CategoryName: domain.CategoryTitle,
 		Cover:        domain.Cover,
 		Instructor:   domain.Instructor,
 	}
@@ -56,7 +56,7 @@ func FromDomainWithModule(domain courses.Domain) Course {
 		Title:        domain.Title,
 		Description:  domain.Description,
 		CategoryID:   domain.CategoryID,
-		CategoryName: domain.CategoryName,
+		CategoryName: domain.CategoryTitle,
 		Cover:        domain.Cover,
 		Instructor:   domain.Instructor,
 		Modules:      modules, // Hasil dari FromDomainList

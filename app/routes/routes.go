@@ -41,10 +41,10 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	)
 
 	// Category Routes
-	categoryRoutes := e.Group("/api/v1/categories", echojwt.WithConfig(cl.JWTMiddleware))
+	categoryRoutes := e.Group("/api/v1/users/categories", echojwt.WithConfig(cl.JWTMiddleware))
 	categoryRoutes.Use(middlewares.VerifyToken)
 	categoryRoutes.GET("", cl.CategoryController.GetAll)                                 // Get all categories
-	categoryRoutes.POST("", cl.CategoryController.Create, middlewares.VerifyAdmin)       // Create new category
+	categoryRoutes.POST("", cl.CategoryController.Create, middlewares.VerifyUser)        // Create new category
 	categoryRoutes.PUT("/:id", cl.CategoryController.Update, middlewares.VerifyAdmin)    // Update category by ID
 	categoryRoutes.DELETE("/:id", cl.CategoryController.Delete, middlewares.VerifyAdmin) // Delete category by ID
 

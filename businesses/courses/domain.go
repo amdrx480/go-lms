@@ -9,17 +9,17 @@ import (
 )
 
 type Domain struct {
-	ID           int
-	CreatedAt    time.Time
-	UpdatedAt    time.Time
-	DeletedAt    *gorm.DeletedAt
-	Title        string
-	Description  string
-	CategoryName string
-	CategoryID   int
-	Cover        string
-	Instructor   string
-	Modules      []modules.Domain
+	ID            int
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	DeletedAt     *gorm.DeletedAt
+	Title         string
+	Description   string
+	CategoryTitle string
+	CategoryID    int
+	Cover         string
+	Instructor    string
+	Modules       []modules.Domain
 }
 
 type UseCase interface {

@@ -68,7 +68,7 @@ func (cr *categoryRepository) Update(ctx context.Context, categoryDomain *catego
 
 	updatedCategory := FromDomain(&category)
 
-	updatedCategory.Name = categoryDomain.Name
+	updatedCategory.Title = categoryDomain.Title
 	updatedCategory.Slug = categoryDomain.Slug // Pastikan slug ikut diperbarui
 
 	if err := cr.conn.WithContext(ctx).Save(&updatedCategory).Error; err != nil {

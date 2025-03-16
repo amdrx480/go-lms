@@ -125,3 +125,23 @@ func VerifyAdmin(next echo.HandlerFunc) echo.HandlerFunc {
 		return next(c)
 	}
 }
+
+func VerifyUser(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		user, err := GetUser(c.Request().Context())
+
+		if err != nil {
+			return c.JSON(http.StatusUnauthorized, map[string]string{
+				"message": "invalid token",
+			})
+		}
+
+		if user.Role != utils.ROLE_USER {
+			return c.JSON(http.StatusForbidden, map[string]string{
+				"message": "access denied",
+			})
+		}
+
+		return next(c)
+	}
+}
