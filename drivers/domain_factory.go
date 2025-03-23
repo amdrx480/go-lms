@@ -13,6 +13,9 @@ import (
 	documentDomain "github.com/amdrx480/go-lms/businesses/documents"
 	documentDB "github.com/amdrx480/go-lms/drivers/mysql/documents"
 
+	enrollmentDomain "github.com/amdrx480/go-lms/businesses/enrollments"
+	enrollmentDB "github.com/amdrx480/go-lms/drivers/mysql/enrollments"
+
 	lessonDomain "github.com/amdrx480/go-lms/businesses/lessons"
 	lessonDB "github.com/amdrx480/go-lms/drivers/mysql/lessons"
 
@@ -39,6 +42,10 @@ func NewCourseRepository(conn *gorm.DB) courseDomain.Repository {
 
 func NewDocumentRepository(conn *gorm.DB) documentDomain.Repository {
 	return documentDB.NewMySQLDocumentRepository(conn)
+}
+
+func NewEnrollmentRepository(conn *gorm.DB) enrollmentDomain.Repository {
+	return enrollmentDB.NewMySQLEnrollmentRepository(conn)
 }
 
 func NewLessonRepository(conn *gorm.DB) lessonDomain.Repository {

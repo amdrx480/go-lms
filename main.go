@@ -25,6 +25,9 @@ import (
 	_documentUseCase "github.com/amdrx480/go-lms/businesses/documents"
 	_documentController "github.com/amdrx480/go-lms/controllers/documents"
 
+	_enrollmentUseCase "github.com/amdrx480/go-lms/businesses/enrollments"
+	_enrollmentController "github.com/amdrx480/go-lms/controllers/enrollments"
+
 	_lessonUseCase "github.com/amdrx480/go-lms/businesses/lessons"
 	_lessonController "github.com/amdrx480/go-lms/controllers/lessons"
 
@@ -91,6 +94,10 @@ func main() {
 	documentUsecase := _documentUseCase.NewDocumentUseCase(documentRepo)
 	documentCtrl := _documentController.NewDocumentController(documentUsecase)
 
+	enrollmentRepo := _driverFactory.NewEnrollmentRepository(db)
+	enrollmentUsecase := _enrollmentUseCase.NewEnrollmentUseCase(enrollmentRepo)
+	enrollmentCtrl := _enrollmentController.NewEnrollmentController(enrollmentUsecase)
+
 	lessonRepo := _driverFactory.NewLessonRepository(db)
 	lessonUsecase := _lessonUseCase.NewLessonUseCase(lessonRepo)
 	lessonCtrl := _lessonController.NewLessonController(lessonUsecase)
@@ -110,6 +117,7 @@ func main() {
 		ChapterController:  *chapterCtrl,
 		CourseController:   *courseCtrl,
 		DocumentController: *documentCtrl,
+		EnrollmentCtrl:     *enrollmentCtrl,
 		LessonController:   *lessonCtrl,
 		ModuleController:   *moduleCtrl,
 		UserController:     *userCtrl,
