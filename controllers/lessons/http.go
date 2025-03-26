@@ -45,15 +45,13 @@ func (lc *LessonController) Create(c echo.Context) error {
 
 func (lc *LessonController) GetAll(c echo.Context) error {
 	ctx := c.Request().Context()
-
 	lessonsData, err := lc.lessonUseCase.GetAll(ctx)
 
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch lessons", "")
 	}
 
-	// Mengonversi seluruh data domain ke model respons
-	lessons := response.FromDomainWithDocumentList(lessonsData)
+	lessons := response.FromDomainList(lessonsData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all lessons", lessons)
 }
@@ -84,7 +82,6 @@ func (lc *LessonController) Update(c echo.Context) error {
 	}
 
 	lessonsID := c.Param("id")
-
 	lID, err := strconv.Atoi(lessonsID)
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusUnprocessableEntity, "failed", "id must be valid integer", "")

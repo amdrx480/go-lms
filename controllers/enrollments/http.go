@@ -95,20 +95,13 @@ func (ec *EnrollmentController) GetEnrollmentByUserCourse(c echo.Context) error 
 }
 
 func (ec *EnrollmentController) GetAllEnrollmentCourseByUserID(c echo.Context) error {
-	userID := c.Param("user_id")
 	ctx := c.Request().Context()
 
-	uID, err := strconv.Atoi(userID)
-	if err != nil {
-		return controllers.NewResponse(c, http.StatusUnprocessableEntity, "failed", "id must be valid integer", "")
-	}
-
-	enrollmentsData, err := ec.enrollmentUseCase.GetAllEnrollmentCourseByUserID(ctx, uID)
+	enrollmentsData, err := ec.enrollmentUseCase.GetAllEnrollmentCourseByUserID(ctx)
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch data", "")
 	}
 
-	// ✅ Konversi ke response
 	enrollments := response.FromDomainList(enrollmentsData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all enrollments", enrollments)

@@ -17,7 +17,7 @@ type User struct {
 	Username  string         `json:"username"`
 	Email     string         `json:"email" gorm:"unique"`
 	Password  string         `json:"password"`
-	Role      utils.Role     `json:"role" gorm:"type:enum('admin','teacher','user')"`
+	Role      utils.Role     `json:"role" gorm:"type:enum('admin','instructor','user')"`
 }
 
 // buat agar otomatis menyimpan user ke role jika tidak ada pilihan role

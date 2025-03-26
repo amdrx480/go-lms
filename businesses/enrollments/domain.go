@@ -16,17 +16,17 @@ type Domain struct {
 	DeletedAt gorm.DeletedAt
 	UserID    int
 	CourseID  int
-	Progress  int
 	Course    courses.Domain
-
-	// LastAccessedAt time.Time
+	Progress  int
 }
+
+// LastAccessedAt time.Time
 
 type Usecase interface {
 	CreateEnrollmentCourse(ctx context.Context, enrollmentReq *Domain) (Domain, error)
 	GetEnrollmentByUserCourse(ctx context.Context, userID int, courseID int) (Domain, error)
 
-	GetAllEnrollmentCourseByUserID(ctx context.Context, userID int) ([]Domain, error)
+	GetAllEnrollmentCourseByUserID(ctx context.Context) ([]Domain, error)
 
 	// GetAllUserEnrollment(ctx context.Context) ([]Domain, error)
 
@@ -43,7 +43,7 @@ type Repository interface {
 	CreateEnrollmentCourse(ctx context.Context, enrollmentReq *Domain) (Domain, error)
 	GetEnrollmentByUserCourse(ctx context.Context, userID int, courseID int) (Domain, error)
 
-	GetAllEnrollmentCourseByUserID(ctx context.Context, userID int) ([]Domain, error)
+	GetAllEnrollmentCourseByUserID(ctx context.Context) ([]Domain, error)
 
 	// GetAllUserEnrollment(ctx context.Context) ([]Domain, error)
 

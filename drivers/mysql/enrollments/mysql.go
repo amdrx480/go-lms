@@ -5,7 +5,11 @@ import (
 	"errors"
 	"time"
 
+	// "github.com/amdrx480/go-lms/businesses/users"
 	"github.com/amdrx480/go-lms/businesses/enrollments"
+
+	"github.com/amdrx480/go-lms/app/middlewares"
+
 	"gorm.io/gorm"
 )
 
@@ -90,12 +94,18 @@ func (er *enrollmentRepository) UpdateProgress(ctx context.Context, userID, cour
 	return enrollment, nil
 }
 
-func (er *enrollmentRepository) GetAllEnrollmentCourseByUserID(ctx context.Context, userID int) ([]enrollments.Domain, error) {
+func (er *enrollmentRepository) GetAllEnrollmentCourseByUserID(ctx context.Context) ([]enrollments.Domain, error) {
+	id, err := middlewares.GetUserID(ctx)
+	if err != nil {
+		return []enrollments.Domain{}, errors.New("invalid token")
+	}
+
 	var enrollmentRecords []Enrollment
 
 	if err := er.conn.WithContext(ctx).
-		Preload("Course"). // Menampilkan data course dalam enrollment
-		Find(&enrollmentRecords, "user_id = ?", userID).Error; err != nil {
+		Preload("Course.Category").
+		Preload("Course.Modules.Chapter.Lesson.Documents").
+		Find(&enrollmentRecords, "user_id = ?", id).Error; err != nil {
 		return []enrollments.Domain{}, err
 	}
 

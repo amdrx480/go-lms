@@ -55,7 +55,7 @@ func (cr *courseRepository) GetByID(ctx context.Context, id int) (courses.Domain
 
 func (cr *courseRepository) GetAll(ctx context.Context) ([]courses.Domain, error) {
 	var courseRecords []Course
-	err := cr.conn.WithContext(ctx).Preload("Category").Preload("Modules").Find(&courseRecords).Error
+	err := cr.conn.WithContext(ctx).Preload("Category").Preload("Modules.Chapter.Lesson.Documents").Find(&courseRecords).Error
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +73,6 @@ func (cr *courseRepository) Update(ctx context.Context, courseDomain *courses.Do
 
 	updatedCourse.Title = courseDomain.Title
 	updatedCourse.Description = courseDomain.Description
-	updatedCourse.CategoryID = courseDomain.CategoryID
 	updatedCourse.Cover = courseDomain.Cover
 
 	err = cr.conn.WithContext(ctx).Save(&updatedCourse).Error

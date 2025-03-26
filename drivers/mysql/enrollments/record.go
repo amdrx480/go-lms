@@ -4,22 +4,22 @@ import (
 	"time"
 
 	"github.com/amdrx480/go-lms/businesses/enrollments"
-	"github.com/amdrx480/go-lms/drivers/mysql/courses"
+	_coursesDB "github.com/amdrx480/go-lms/drivers/mysql/courses"
 	"github.com/amdrx480/go-lms/drivers/mysql/users"
 
 	"gorm.io/gorm"
 )
 
 type Enrollment struct {
-	ID        int            `json:"id" gorm:"primaryKey"`
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index"`
-	User      users.User     `json:"user"`
-	UserID    int            `json:"user_id"`
-	Course    courses.Course `json:"course"`
-	CourseID  int            `json:"course_id"`
-	Progress  int            `gorm:"default:0" json:"progress"` // 0 - 100
+	ID        int               `json:"id" gorm:"primaryKey"`
+	CreatedAt time.Time         `json:"created_at"`
+	UpdatedAt time.Time         `json:"updated_at"`
+	DeletedAt gorm.DeletedAt    `json:"deleted_at" gorm:"index"`
+	User      users.User        `json:"user"`
+	UserID    int               `json:"user_id"`
+	Course    _coursesDB.Course `json:"course"`
+	CourseID  int               `json:"course_id"`
+	Progress  int               `gorm:"default:0" json:"progress"` // 0 - 100
 }
 
 func (rec *Enrollment) ToDomain() enrollments.Domain {
@@ -29,8 +29,8 @@ func (rec *Enrollment) ToDomain() enrollments.Domain {
 		UpdatedAt: rec.UpdatedAt,
 		DeletedAt: rec.DeletedAt,
 		UserID:    rec.UserID,
-		CourseID:  rec.CourseID,
 		Course:    rec.Course.ToDomain(),
+		CourseID:  rec.CourseID,
 		Progress:  rec.Progress,
 	}
 }
@@ -50,9 +50,7 @@ func FromDomain(domain *enrollments.Domain) *Enrollment {
 		UpdatedAt: domain.UpdatedAt,
 		DeletedAt: domain.DeletedAt,
 		UserID:    domain.UserID,
-		// Course:    courses.FromDomain(domain.Course),
-		Course:   *courses.FromDomain(&domain.Course),
-		CourseID: domain.CourseID,
-		Progress: domain.Progress,
+		CourseID:  domain.CourseID,
+		Progress:  domain.Progress,
 	}
 }

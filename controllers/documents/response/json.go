@@ -19,8 +19,8 @@ type Document struct {
 	FilePath  string          `json:"file_path"`
 }
 
-func FromDomain(domain documents.Domain) Document {
-	return Document{
+func FromDomain(domain documents.Domain) *Document {
+	return &Document{
 		ID:        domain.ID,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
@@ -35,7 +35,7 @@ func FromDomain(domain documents.Domain) Document {
 func FromDomainList(documentsData []documents.Domain) []Document {
 	var document []Document
 	for _, course := range documentsData {
-		document = append(document, FromDomain(course))
+		document = append(document, *FromDomain(course))
 	}
 	return document
 }

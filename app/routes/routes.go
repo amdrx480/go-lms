@@ -87,7 +87,7 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	EnrollmentRoutes.Use(middlewares.VerifyToken)
 	EnrollmentRoutes.POST("", cl.EnrollmentCtrl.CreateEnrollmentCourse)                       //
 	EnrollmentRoutes.GET("/:user_id/:course_id", cl.EnrollmentCtrl.GetEnrollmentByUserCourse) // Ambil enrollment berdasarkan user & course
-	EnrollmentRoutes.GET("/:user_id", cl.EnrollmentCtrl.GetAllEnrollmentCourseByUserID)       // Get lesson by ID
+	EnrollmentRoutes.GET("", cl.EnrollmentCtrl.GetAllEnrollmentCourseByUserID)                // Get lesson by ID
 
 	// Lesson Routes
 	LessonRoutes := e.Group("/api/v1/lessons", echojwt.WithConfig(cl.JWTMiddleware))

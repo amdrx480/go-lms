@@ -45,15 +45,13 @@ func (cc *ChapterController) Create(c echo.Context) error {
 
 func (cc *ChapterController) GetAll(c echo.Context) error {
 	ctx := c.Request().Context()
-
 	chaptersData, err := cc.chapterUseCase.GetAll(ctx)
 
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch chapters", "")
 	}
 
-	// Mengonversi seluruh data domain ke model respons
-	chapters := response.FromDomainWithChapterList(chaptersData)
+	chapters := response.FromDomainList(chaptersData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all chapters", chapters)
 }

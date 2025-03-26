@@ -22,8 +22,8 @@ func (usecase *enrollmentUseCase) GetEnrollmentByUserCourse(ctx context.Context,
 	return usecase.enrollmentRepository.GetEnrollmentByUserCourse(ctx, userID, courseID)
 }
 
-func (usecase *enrollmentUseCase) GetAllEnrollmentCourseByUserID(ctx context.Context, userID int) ([]Domain, error) {
-	return usecase.enrollmentRepository.GetAllEnrollmentCourseByUserID(ctx, userID)
+func (usecase *enrollmentUseCase) GetAllEnrollmentCourseByUserID(ctx context.Context) ([]Domain, error) {
+	return usecase.enrollmentRepository.GetAllEnrollmentCourseByUserID(ctx)
 }
 
 // func (usecase *enrollmentUseCase) GetAllUserEnrollment(ctx context.Context) ([]Domain, error) {

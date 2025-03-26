@@ -4,22 +4,24 @@ import (
 	"context"
 	"time"
 
+	"github.com/amdrx480/go-lms/businesses/categories"
 	"github.com/amdrx480/go-lms/businesses/modules"
 	"gorm.io/gorm"
 )
 
 type Domain struct {
-	ID            int
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
-	DeletedAt     *gorm.DeletedAt
-	Title         string
-	Description   string
-	CategoryTitle string
-	CategoryID    int
-	Cover         string
-	Instructor    string
-	Modules       []modules.Domain
+	ID          int
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   *gorm.DeletedAt
+	Slug        string
+	Title       string
+	Description string
+	Category    categories.Domain
+	CategoryID  int
+	Cover       string
+	Instructor  string
+	Modules     []modules.Domain
 }
 
 type UseCase interface {

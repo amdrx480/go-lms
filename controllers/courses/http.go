@@ -31,7 +31,6 @@ func (cc *CourseController) GetAll(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch courses", "")
 	}
 
-	// Mengonversi seluruh data domain ke model respons
 	courses := response.FromDomainList(coursesData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all courses", courses)
@@ -45,8 +44,7 @@ func (cc *CourseController) GetAllWithModule(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch courses", "")
 	}
 
-	// Mengonversi seluruh data domain ke model respons
-	courses := response.FromDomainWithModuleList(coursesData)
+	courses := response.FromDomainList(coursesData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all courses", courses)
 }

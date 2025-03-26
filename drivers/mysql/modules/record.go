@@ -1,7 +1,6 @@
 package modules
 
 import (
-	"github.com/amdrx480/go-lms/businesses/chapters"
 	"github.com/amdrx480/go-lms/businesses/modules"
 	_chaptersDB "github.com/amdrx480/go-lms/drivers/mysql/chapters"
 
@@ -21,12 +20,6 @@ type Module struct {
 }
 
 func (rec *Module) ToDomain() modules.Domain {
-	chaptersDomain := []chapters.Domain{}
-
-	// Iterasi rec.Chapters untuk memanggil metode ToDomain pada setiap elemen
-	for _, chapter := range rec.Chapter {
-		chaptersDomain = append(chaptersDomain, chapter.ToDomain())
-	}
 	return modules.Domain{
 		ID:        rec.ID,
 		CreatedAt: rec.CreatedAt,
@@ -34,7 +27,7 @@ func (rec *Module) ToDomain() modules.Domain {
 		DeletedAt: rec.DeletedAt,
 		CourseID:  rec.CourseID,
 		Title:     rec.Title,
-		Chapters:  chaptersDomain,
+		Chapters:  _chaptersDB.ToDomainList(rec.Chapter),
 	}
 }
 

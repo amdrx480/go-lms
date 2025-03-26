@@ -55,7 +55,7 @@ func (mc *ModuleController) GetAll(c echo.Context) error {
 	modules := []response.Module{}
 
 	for _, module := range modulesData {
-		modules = append(modules, response.FromDomain(module))
+		modules = append(modules, *response.FromDomain(module))
 	}
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all modules", modules)
@@ -70,7 +70,7 @@ func (mc *ModuleController) GetAllWithChapter(c echo.Context) error {
 	}
 
 	// Mengonversi seluruh data domain ke model respons
-	courses := response.FromDomainWithChapterList(modulesData)
+	courses := response.FromDomainList(modulesData)
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all modules", courses)
 }

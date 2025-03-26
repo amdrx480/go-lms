@@ -35,7 +35,6 @@ func (dc *DocumentController) Create(c echo.Context) error {
 	}
 
 	document, err := dc.documentUseCase.Create(ctx, documentReq.ToDomain())
-
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to create a document", "")
 	}
@@ -45,19 +44,13 @@ func (dc *DocumentController) Create(c echo.Context) error {
 
 func (dc *DocumentController) GetAll(c echo.Context) error {
 	ctx := c.Request().Context()
-
 	documentsData, err := dc.documentUseCase.GetAll(ctx)
 
 	if err != nil {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch documents", "")
 	}
 
-	documents := []response.Document{}
-
-	for _, document := range documentsData {
-		documents = append(documents, response.FromDomain(document))
-	}
-
+	documents := response.FromDomainList(documentsData)
 	return controllers.NewResponse(c, http.StatusOK, "success", "all documents", documents)
 }
 

@@ -1,7 +1,6 @@
 package lessons
 
 import (
-	"github.com/amdrx480/go-lms/businesses/documents"
 	"github.com/amdrx480/go-lms/businesses/lessons"
 	_documentsDB "github.com/amdrx480/go-lms/drivers/mysql/documents"
 
@@ -23,11 +22,6 @@ type Lesson struct {
 }
 
 func (rec *Lesson) ToDomain() lessons.Domain {
-	documentsDomain := []documents.Domain{}
-	// Iterasi rec.Chapters untuk memanggil metode ToDomain pada setiap elemen
-	for _, document := range rec.Documents {
-		documentsDomain = append(documentsDomain, document.ToDomain())
-	}
 	return lessons.Domain{
 		ID:        rec.ID,
 		CreatedAt: rec.CreatedAt,
@@ -37,7 +31,7 @@ func (rec *Lesson) ToDomain() lessons.Domain {
 		Title:     rec.Title,
 		Content:   rec.Content,
 		VideoURL:  rec.VideoURL,
-		Documents: documentsDomain,
+		Documents: _documentsDB.ToDomainList(rec.Documents),
 	}
 }
 
