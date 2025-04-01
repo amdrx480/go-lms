@@ -41,3 +41,7 @@ func (usecase *userUseCase) Login(ctx context.Context, userDomain *Domain) (stri
 func (usecase *userUseCase) GetUserProfile(ctx context.Context) (Domain, error) {
 	return usecase.userRepository.GetUserProfile(ctx)
 }
+
+func (usecase userUseCase) FindByEmail(ctx context.Context, email string) (Domain, error) {
+	return usecase.userRepository.FindByEmail(ctx, email)
+}

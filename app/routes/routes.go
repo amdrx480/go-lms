@@ -9,6 +9,7 @@ import (
 	"github.com/amdrx480/go-lms/controllers/enrollments"
 	"github.com/amdrx480/go-lms/controllers/lessons"
 	"github.com/amdrx480/go-lms/controllers/modules"
+	"github.com/amdrx480/go-lms/controllers/otp"
 	"github.com/amdrx480/go-lms/controllers/users"
 
 	echojwt "github.com/labstack/echo-jwt/v4"
@@ -26,6 +27,7 @@ type ControllerList struct {
 	LessonController   lessons.LessonController
 	ModuleController   modules.ModuleController
 	UserController     users.UserController
+	OTPController      otp.OTPController
 }
 
 func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
@@ -41,6 +43,12 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 		echojwt.WithConfig(cl.JWTMiddleware),
 		middlewares.VerifyToken,
 	)
+
+	// OTP Routes
+	otpRoutes := e.Group("/api/v1/", echojwt.WithConfig(cl.JWTMiddleware))
+	otpRoutes.Use(middlewares.VerifyToken)
+	otpRoutes.POST("request-otp", cl.OTPController.RequestOTP)
+	otpRoutes.POST("login-otp", cl.OTPController.LoginWithOTP)
 
 	// Tambahkan ini untuk hanya role tertentu saja pada routes
 	// DocumentRoutes.POST("", cl.DocumentController.Create, middlewares.VerifyAdmin)       // Create new document

@@ -65,6 +65,18 @@ func (ur *userRepository) GetByEmail(ctx context.Context, userDomain *users.Doma
 	return user.ToDomain(), nil
 }
 
+func (ur *userRepository) FindByEmail(ctx context.Context, email string) (users.Domain, error) {
+	var user User
+
+	err := ur.conn.WithContext(ctx).First(&user, "email = ?", email).Error
+
+	if err != nil {
+		return users.Domain{}, err
+	}
+
+	return user.ToDomain(), nil
+}
+
 func (ur *userRepository) GetUserProfile(ctx context.Context) (users.Domain, error) {
 	id, err := middlewares.GetUserID(ctx)
 

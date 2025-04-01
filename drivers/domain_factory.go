@@ -22,9 +22,13 @@ import (
 	moduleDomain "github.com/amdrx480/go-lms/businesses/modules"
 	moduleDB "github.com/amdrx480/go-lms/drivers/mysql/modules"
 
+	otpDomain "github.com/amdrx480/go-lms/businesses/otp"
+	otpDB "github.com/amdrx480/go-lms/drivers/redis/otp"
+
 	userDomain "github.com/amdrx480/go-lms/businesses/users"
 	userDB "github.com/amdrx480/go-lms/drivers/mysql/users"
 
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -54,6 +58,10 @@ func NewLessonRepository(conn *gorm.DB) lessonDomain.Repository {
 
 func NewModuleRepository(conn *gorm.DB) moduleDomain.Repository {
 	return moduleDB.NewMySQLModuleRepository(conn)
+}
+
+func NewOTPRepository(conn *redis.Client) otpDomain.Repository {
+	return otpDB.NewOTPRepository(conn)
 }
 
 func NewUserRepository(conn *gorm.DB) userDomain.Repository {

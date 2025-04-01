@@ -34,10 +34,14 @@ import (
 	_moduleUseCase "github.com/amdrx480/go-lms/businesses/modules"
 	_moduleController "github.com/amdrx480/go-lms/controllers/modules"
 
+	_otpUseCase "github.com/amdrx480/go-lms/businesses/otp"
+	_otpController "github.com/amdrx480/go-lms/controllers/otp"
+
 	_userUseCase "github.com/amdrx480/go-lms/businesses/users"
 	_userController "github.com/amdrx480/go-lms/controllers/users"
 
 	_dbDriver "github.com/amdrx480/go-lms/drivers/mysql"
+	_redisDriver "github.com/amdrx480/go-lms/drivers/redis"
 
 	_middleware "github.com/amdrx480/go-lms/app/middlewares"
 	_routes "github.com/amdrx480/go-lms/app/routes"
@@ -59,6 +63,28 @@ func main() {
 
 	db := configDB.InitDB()
 	_dbDriver.MigrateDB(db)
+
+	configRedis := _redisDriver.RedisConfig{
+		REDIS_HOST:     utils.GetConfig("REDIS_HOST"),
+		REDIS_PORT:     utils.GetConfig("REDIS_PORT"),
+		REDIS_PASSWORD: utils.GetConfig("REDIS_PASSWORD"),
+		REDIS_DB:       utils.GetConfig("REDIS_DB"),
+		REDIS_TIMEOUT:  utils.GetConfig("REDIS_TIMEOUT"),
+	}
+
+	redisDB := configRedis.InitRedis()
+
+	configSMTP := utils.SMTPConfig{
+		SMTP_HOST:     utils.GetConfig("SMTP_HOST"),
+		SMTP_PORT:     utils.GetConfig("SMTP_PORT"),
+		SMTP_EMAIL:    utils.GetConfig("SMTP_EMAIL"),
+		SMTP_PASSWORD: utils.GetConfig("SMTP_PASSWORD"),
+		SMTP_NAME:     utils.GetConfig("SMTP_NAME"),
+		SMTP_TIMEOUT:  utils.GetConfig("SMTP_TIMEOUT"),
+	}
+
+	// 🔹 Inisialisasi SMTP
+	smtpClient := configSMTP.InitSMTP()
 
 	configJWT := _middleware.JWTConfig{
 		SecretKey:       utils.GetConfig("JWT_SECRET_KEY"),
@@ -110,6 +136,10 @@ func main() {
 	userUsecase := _userUseCase.NewUserUseCase(userRepo, &configJWT)
 	userCtrl := _userController.NewAuthController(userUsecase)
 
+	otpRepo := _driverFactory.NewOTPRepository(redisDB)
+	otpUsecase := _otpUseCase.NewOTPUseCase(userRepo, otpRepo, &configJWT)
+	otpCtrl := _otpController.NewOTPController(otpUsecase)
+
 	routesInit := _routes.ControllerList{
 		LoggerMiddleware:   configLogger.Init(),
 		JWTMiddleware:      configJWT.Init(),
@@ -121,6 +151,7 @@ func main() {
 		LessonController:   *lessonCtrl,
 		ModuleController:   *moduleCtrl,
 		UserController:     *userCtrl,
+		OTPController:      *otpCtrl,
 	}
 
 	routesInit.RegisterRoutes(e)
@@ -134,6 +165,12 @@ func main() {
 	wait := gracefulShutdown(context.Background(), 2*time.Second, map[string]operation{
 		"database": func(ctx context.Context) error {
 			return _dbDriver.CloseDB(db)
+		},
+		"redis": func(ctx context.Context) error {
+			return _redisDriver.CloseRedis(redisDB)
+		},
+		"smtp": func(ctx context.Context) error {
+			return utils.CloseSMTP(smtpClient)
 		},
 		"http-server": func(ctx context.Context) error {
 			return e.Shutdown(context.Background())

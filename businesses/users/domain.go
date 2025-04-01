@@ -30,4 +30,5 @@ type Repository interface {
 	Register(ctx context.Context, userDomain *Domain) (Domain, error)
 	GetByEmail(ctx context.Context, userDomain *Domain) (Domain, error)
 	GetUserProfile(ctx context.Context) (Domain, error)
+	FindByEmail(ctx context.Context, email string) (Domain, error)
 }
