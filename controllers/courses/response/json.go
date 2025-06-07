@@ -18,7 +18,7 @@ type Course struct {
 	CategoryID  int                       `json:"category_id"`
 	Cover       string                    `json:"cover"`
 	Instructor  string                    `json:"instructor"`
-	Modules     []_modulesResponse.Module `json:"modules,omitempty"` // Gunakan pointer & omitempty
+	Modules     []_modulesResponse.Module `json:"modules,omitempty"`
 }
 
 func FromDomain(domain courses.Domain) Course {

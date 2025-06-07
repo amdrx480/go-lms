@@ -3,6 +3,7 @@ package middlewares
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -19,8 +20,10 @@ type JWTCustomClaims struct {
 }
 
 type JWTConfig struct {
-	SecretKey       string
-	ExpiresDuration int
+	SecretKey            string
+	AccessTokenDuration  time.Duration // e.g. 15 * time.Minute
+	RefreshTokenDuration time.Duration // e.g. 7 * 24 * time.Hour
+	ExpiresDuration      int
 }
 
 type contextKey string
@@ -36,19 +39,37 @@ func (jwtConfig *JWTConfig) Init() echojwt.Config {
 	}
 }
 
-func (jwtConfig *JWTConfig) GenerateToken(userID int, role utils.Role) (string, error) {
-	expire := jwt.NewNumericDate(time.Now().Local().Add(730 * time.Hour * time.Duration(int64(jwtConfig.ExpiresDuration))))
-
+func (jwtConfig *JWTConfig) GenerateAccessToken(userID int, role utils.Role) (string, error) {
 	claims := &JWTCustomClaims{
 		ID:   userID,
 		Role: role,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: expire,
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(jwtConfig.AccessTokenDuration)),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
 		},
 	}
 
 	rawToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token, err := rawToken.SignedString([]byte(jwtConfig.SecretKey))
 
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
+}
+
+func (jwtConfig *JWTConfig) GenerateRefreshToken(userID int, role utils.Role) (string, error) {
+	claims := &JWTCustomClaims{
+		ID:   userID,
+		Role: role,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(jwtConfig.RefreshTokenDuration)),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
+		},
+	}
+
+	rawToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	token, err := rawToken.SignedString([]byte(jwtConfig.SecretKey))
 
 	if err != nil {
@@ -103,6 +124,28 @@ func VerifyToken(next echo.HandlerFunc) echo.HandlerFunc {
 		}
 
 		return next(c)
+	}
+}
+
+func (jwtConfig *JWTConfig) VerifyRefreshToken(refreshToken string) (*JWTCustomClaims, error) {
+	// Parse token dengan claims custom
+	token, err := jwt.ParseWithClaims(refreshToken, &JWTCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		// Pastikan pakai metode signing HS256
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return []byte(jwtConfig.SecretKey), nil
+	})
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse refresh token: %w", err)
+	}
+
+	// Cek validitas token dan klaim
+	if claims, ok := token.Claims.(*JWTCustomClaims); ok && token.Valid {
+		return claims, nil
+	} else {
+		return nil, errors.New("invalid refresh token")
 	}
 }
 

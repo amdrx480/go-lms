@@ -18,6 +18,10 @@ type UserLogin struct {
 	Password string `json:"password" validate:"required"`
 }
 
+type RefreshRequest struct {
+	RefreshToken string `json:"refresh_token" validate:"required"`
+}
+
 func (req *UserRegister) ToDomain() *users.Domain {
 	return &users.Domain{
 		FullName: req.FullName,

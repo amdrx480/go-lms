@@ -35,7 +35,7 @@ func (config *RedisConfig) InitRedis() *redis.Client {
 	ctx := context.Background()
 	_, err = client.Ping(ctx).Result()
 	if err != nil {
-		log.Fatalf("error when creating a connection to Redis: %v", err)
+		log.Fatalf("error when creating a connection to Redis: %s\n", err)
 	}
 
 	log.Println("Connected to Redis")
@@ -45,10 +45,10 @@ func (config *RedisConfig) InitRedis() *redis.Client {
 func CloseRedis(client *redis.Client) error {
 	err := client.Close()
 	if err != nil {
-		log.Printf("error saat menutup koneksi Redis: %v", err)
+		log.Printf("error when closing Redis connection: %v", err)
 		return err
 	}
 
-	log.Println("Redis connection closed")
+	log.Println("Redis connection is closed")
 	return nil
 }

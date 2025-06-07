@@ -59,11 +59,11 @@ func (config *SMTPConfig) InitSMTP() *mail.SMTPClient {
 	// Hubungkan ke SMTP
 	smtpClient, err = server.Connect()
 	if err != nil {
-		log.Println("Gagal menghubungkan ke SMTP:", err)
+		log.Fatalf("error when creating a connection to SMTP: %v", err)
 		return nil
 	}
 
-	log.Println("Terhubung ke SMTP")
+	log.Println("Connected to SMTP")
 	return smtpClient
 }
 

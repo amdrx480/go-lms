@@ -87,8 +87,10 @@ func main() {
 	smtpClient := configSMTP.InitSMTP()
 
 	configJWT := _middleware.JWTConfig{
-		SecretKey:       utils.GetConfig("JWT_SECRET_KEY"),
-		ExpiresDuration: 1,
+		SecretKey:            utils.GetConfig("JWT_SECRET_KEY"),
+		AccessTokenDuration:  utils.GetConfigDuration("JWT_ACCESS_TOKEN_DURATION"),
+		RefreshTokenDuration: utils.GetConfigDuration("JWT_REFRESH_TOKEN_DURATION"),
+		ExpiresDuration:      1,
 	}
 
 	configLogger := _middleware.LoggerConfig{

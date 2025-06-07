@@ -22,9 +22,3 @@ type Repository interface {
 	SaveOTP(ctx context.Context, otpReq *Domain) (Domain, error)
 	GetOTP(ctx context.Context, otpReq *Domain) (Domain, error)
 }
-
-// VerifyOTP(ctx context.Context, userID int, otpCode string) (Domain, error)
-
-// GetByID(ctx context.Context, id int) (Domain, error)
-// Update(ctx context.Context, lessonReq Domain, id int) (Domain, error)
-// Delete(ctx context.Context, userID int) error

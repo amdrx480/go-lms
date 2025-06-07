@@ -88,7 +88,8 @@ func (usecase *OTPUseCase) LoginWithOTP(ctx context.Context, otpReq *Domain) (st
 	log.Println("OTP valid untuk email:", otpReq.Email)
 
 	// Buat token JWT
-	token, err := usecase.jwtConfig.GenerateToken(int(user.ID), user.Role)
+	// token, _, err := usecase.jwtConfig.GenerateAccessToken(int(user.ID), user.Role)
+	token, err := usecase.jwtConfig.GenerateAccessToken(int(user.ID), user.Role)
 	if err != nil {
 		log.Println("Gagal membuat token JWT untuk email:", otpReq.Email)
 		return "", err

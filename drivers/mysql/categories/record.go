@@ -28,14 +28,6 @@ func (rec *Category) ToDomain() categories.Domain {
 	}
 }
 
-// func ToDomainList(records []Category) []categories.Domain {
-// 	var domains []categories.Domain
-// 	for _, rec := range records {
-// 		domains = append(domains, rec.ToDomain())
-// 	}
-// 	return domains
-// }
-
 func FromDomain(domain *categories.Domain) *Category {
 	return &Category{
 		ID:        domain.ID,

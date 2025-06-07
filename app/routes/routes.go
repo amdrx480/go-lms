@@ -37,6 +37,7 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	userRoutes := e.Group("/api/v1")
 	userRoutes.POST("/register", cl.UserController.Register)
 	userRoutes.POST("/login", cl.UserController.Login)
+	userRoutes.POST("/refresh-token", cl.UserController.RefreshToken)
 	userRoutes.GET(
 		"/profile",
 		cl.UserController.GetUserProfile, // Get user profile
@@ -49,9 +50,6 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	otpRoutes.Use(middlewares.VerifyToken)
 	otpRoutes.POST("request-otp", cl.OTPController.RequestOTP)
 	otpRoutes.POST("login-otp", cl.OTPController.LoginWithOTP)
-
-	// Tambahkan ini untuk hanya role tertentu saja pada routes
-	// DocumentRoutes.POST("", cl.DocumentController.Create, middlewares.VerifyAdmin)       // Create new document
 
 	// Category Routes
 	categoryRoutes := e.Group("/api/v1/categories", echojwt.WithConfig(cl.JWTMiddleware))
@@ -115,3 +113,6 @@ func (cl *ControllerList) RegisterRoutes(e *echo.Echo) {
 	moduleRoutes.PUT("/:id", cl.ModuleController.Update)        // Update module by ID
 	moduleRoutes.DELETE("/:id", cl.ModuleController.Delete)     // Soft delete module by ID
 }
+
+// Tambahkan ini untuk hanya role tertentu saja pada routes
+// DocumentRoutes.POST("", cl.DocumentController.Create, middlewares.VerifyAdmin)       // Create new document

@@ -58,15 +58,34 @@ func (uc *UserController) Login(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusBadRequest, "failed", "validation failed", "")
 	}
 
-	token, err := uc.userUseCase.Login(ctx, userInput.ToDomain())
-
-	var isFailed bool = err != nil || token == ""
-
-	if isFailed {
+	accessToken, refreshToken, err := uc.userUseCase.Login(ctx, userInput.ToDomain())
+	if err != nil || accessToken == "" || refreshToken == "" {
 		return controllers.NewResponse(c, http.StatusUnauthorized, "failed", "invalid email or password", "")
 	}
 
-	return controllers.NewResponse(c, http.StatusOK, "success", "token created", token)
+	tokenData := controllers.AuthTokenData{
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
+	}
+
+	return controllers.NewResponse(c, http.StatusOK, "success", "token created", tokenData)
+}
+
+func (uc *UserController) RefreshToken(c echo.Context) error {
+	userRequest := request.RefreshRequest{}
+	ctx := c.Request().Context()
+
+	if err := c.Bind(&userRequest); err != nil {
+		return controllers.NewResponse(c, http.StatusBadRequest, "failed", "invalid request body", "")
+	}
+
+	accessToken, err := uc.userUseCase.RefreshAccessToken(ctx, userRequest.RefreshToken)
+	if err != nil {
+		return controllers.NewResponse(c, http.StatusUnauthorized, "failed", "refresh token invalid or expired", "")
+	}
+
+	return controllers.NewResponse(c, http.StatusOK, "success", "token refreshed", accessToken)
+
 }
 
 func (uc *UserController) GetUserProfile(c echo.Context) error {

@@ -22,7 +22,8 @@ type Domain struct {
 
 type UseCase interface {
 	Register(ctx context.Context, userDomain *Domain) (Domain, error)
-	Login(ctx context.Context, userDomain *Domain) (string, error)
+	Login(ctx context.Context, userDomain *Domain) (string, string, error)
+	RefreshAccessToken(ctx context.Context, refreshToken string) (string, error)
 	GetUserProfile(ctx context.Context) (Domain, error)
 }
 

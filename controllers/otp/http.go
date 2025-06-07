@@ -8,8 +8,6 @@ import (
 	"github.com/amdrx480/go-lms/controllers"
 	"github.com/amdrx480/go-lms/controllers/otp/request"
 
-	// "github.com/amdrx480/go-lms/controllers/otp/response"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -44,8 +42,6 @@ func (oc *OTPController) RequestOTP(c echo.Context) error {
 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to create a otp", "")
 	}
 
-	// return controllers.NewResponse(c, http.StatusCreated, "success", "otp created", response.FromDomain(otpData))
-	// return controllers.NewResponse(c, http.StatusCreated, "success", "otp created", "success")
 	return controllers.NewResponse(c, http.StatusCreated, "success", "otp created", "")
 }
 

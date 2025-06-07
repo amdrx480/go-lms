@@ -24,26 +24,6 @@ func NewEnrollmentController(enrollmentUC enrollments.Usecase) *EnrollmentContro
 	}
 }
 
-// func (ec *EnrollmentController) CreateEnrollmentCourse(c echo.Context) error {
-// 	enrollmentReq := request.Enrollment{}
-// 	ctx := c.Request().Context()
-
-// 	if err := c.Bind(&enrollmentReq); err != nil {
-// 		return controllers.NewResponse(c, http.StatusBadRequest, "failed", "validation failed", "")
-// 	}
-
-// 	if err := enrollmentReq.Validate(); err != nil {
-// 		return controllers.NewResponse(c, http.StatusUnprocessableEntity, "failed", err.Error(), "")
-// 	}
-
-// 	enrollment, err := ec.enrollmentUseCase.CreateEnrollmentCourse(ctx, enrollmentReq.ToDomain())
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to create a enrollment", "")
-// 	}
-
-// 	return controllers.NewResponse(c, http.StatusCreated, "success", "enrollment created", response.FromDomain(enrollment))
-// }
-
 func (ec *EnrollmentController) CreateEnrollmentCourse(c echo.Context) error {
 	enrollmentReq := request.Enrollment{}
 	ctx := c.Request().Context()
@@ -106,77 +86,3 @@ func (ec *EnrollmentController) GetAllEnrollmentCourseByUserID(c echo.Context) e
 
 	return controllers.NewResponse(c, http.StatusOK, "success", "all enrollments", enrollments)
 }
-
-// func (ec *EnrollmentController) GetAll(c echo.Context) error {
-// 	ctx := c.Request().Context()
-// 	enrollmentsData, err := ec.enrollmentUseCase.GetAll(ctx)
-
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to fetch data", "")
-// 	}
-
-// 	enrollments := response.FromDomainList(enrollmentsData)
-
-// 	return controllers.NewResponse(c, http.StatusOK, "success", "all enrollments", enrollments)
-// }
-
-// func (ec *EnrollmentController) GetByID(c echo.Context) error {
-// 	enrollmentID := c.Param("id")
-// 	ctx := c.Request().Context()
-
-// 	cID, err := strconv.Atoi(enrollmentID)
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusUnprocessableEntity, "failed", "id must be valid integer", "")
-// 	}
-
-// 	enrollment, err := ec.enrollmentUseCase.GetByID(ctx, cID)
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusNotFound, "failed", "enrollment not found", "")
-// 	}
-
-// 	return controllers.NewResponse(c, http.StatusOK, "success", "enrollment found", response.FromDomain(enrollment))
-// }
-
-// func (ec *EnrollmentController) Update(c echo.Context) error {
-// 	enrollmentReq := request.Enrollment{}
-// 	ctx := c.Request().Context()
-
-// 	if err := c.Bind(&enrollmentReq); err != nil {
-// 		return controllers.NewResponse(c, http.StatusBadRequest, "failed", "invalid request", "")
-// 	}
-
-// 	enrollmentID := c.Param("id")
-
-// 	cID, err := strconv.Atoi(enrollmentID)
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusUnprocessableEntity, "failed", "id must be valid integer", "")
-// 	}
-
-// 	if err := enrollmentReq.Validate(); err != nil {
-// 		return controllers.NewResponse(c, http.StatusUnprocessableEntity, "failed", err.Error(), "")
-// 	}
-
-// 	enrollment, err := ec.enrollmentUseCase.Update(ctx, enrollmentReq.ToDomain(), cID)
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to update a enrollment", "")
-// 	}
-
-// 	return controllers.NewResponse(c, http.StatusOK, "success", "enrollment updated", response.FromDomain(enrollment))
-// }
-
-// func (ec *EnrollmentController) Delete(c echo.Context) error {
-// 	enrollmentID := c.Param("id")
-// 	ctx := c.Request().Context()
-
-// 	cID, err := strconv.Atoi(enrollmentID)
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusUnprocessableEntity, "failed", "id must be valid integer", "")
-// 	}
-
-// 	err = ec.enrollmentUseCase.Delete(ctx, cID)
-// 	if err != nil {
-// 		return controllers.NewResponse(c, http.StatusInternalServerError, "failed", "failed to delete a enrollment", "")
-// 	}
-
-// 	return controllers.NewResponse(c, http.StatusOK, "success", "enrollment deleted", "")
-// }
