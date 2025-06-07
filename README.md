@@ -28,6 +28,30 @@ Aplikasi ini menggunakan arsitektur Clean Architecture dengan pendekatan Hexagon
  ┃ ┗ 📂routes
  ┃ ┃ ┗ 📜routes.go
  ┣ 📂businesses
+ ┃ ┣ 📂categories
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
+ ┃ ┣ 📂chapters
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
+ ┃ ┣ 📂courses
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
+ ┃ ┣ 📂documents
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
+ ┃ ┣ 📂enrollments
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
+ ┃ ┣ 📂lessons
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
+ ┃ ┣ 📂modules
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
+ ┃ ┣ 📂otp
+ ┃ ┃ ┣ 📜domain.go
+ ┃ ┃ ┗ 📜usecase.go
  ┃ ┗ 📂users
  ┃ ┃ ┣ 📂mocks
  ┃ ┃ ┃ ┣ 📜Repository.go
@@ -36,6 +60,54 @@ Aplikasi ini menggunakan arsitektur Clean Architecture dengan pendekatan Hexagon
  ┃ ┃ ┣ 📜usecase.go
  ┃ ┃ ┗ 📜usecase_test.go
  ┣ 📂controllers
+ ┃ ┣ 📂categories
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
+ ┃ ┣ 📂chapters
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
+ ┃ ┣ 📂courses
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
+ ┃ ┣ 📂documents
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
+ ┃ ┣ 📂enrollments
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
+ ┃ ┣ 📂lessons
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
+ ┃ ┣ 📂modules
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
+ ┃ ┣ 📂otp
+ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┗ 📜json.go
+ ┃ ┃ ┗ 📜http.go
  ┃ ┣ 📂users
  ┃ ┃ ┣ 📂request
  ┃ ┃ ┃ ┗ 📜json.go
@@ -45,16 +117,45 @@ Aplikasi ini menggunakan arsitektur Clean Architecture dengan pendekatan Hexagon
  ┃ ┗ 📜base_response.go
  ┣ 📂drivers
  ┃ ┣ 📂mysql
+ ┃ ┃ ┣ 📂categories
+ ┃ ┃ ┃ ┣ 📜mysql.go
+ ┃ ┃ ┃ ┗ 📜record.go
+ ┃ ┃ ┣ 📂chapters
+ ┃ ┃ ┃ ┣ 📜mysql.go
+ ┃ ┃ ┃ ┗ 📜record.go
+ ┃ ┃ ┣ 📂courses
+ ┃ ┃ ┃ ┣ 📜mysql.go
+ ┃ ┃ ┃ ┗ 📜record.go
+ ┃ ┃ ┣ 📂documents
+ ┃ ┃ ┃ ┣ 📜mysql.go
+ ┃ ┃ ┃ ┗ 📜record.go
+ ┃ ┃ ┣ 📂enrollments
+ ┃ ┃ ┃ ┣ 📜mysql.go
+ ┃ ┃ ┃ ┗ 📜record.go
+ ┃ ┃ ┣ 📂lessons
+ ┃ ┃ ┃ ┣ 📜mysql.go
+ ┃ ┃ ┃ ┗ 📜record.go
+ ┃ ┃ ┣ 📂modules
+ ┃ ┃ ┃ ┣ 📜mysql.go
+ ┃ ┃ ┃ ┗ 📜record.go
  ┃ ┃ ┣ 📂users
  ┃ ┃ ┃ ┣ 📜mysql.go
  ┃ ┃ ┃ ┗ 📜record.go
  ┃ ┃ ┗ 📜mysql.go
+ ┃ ┣ 📂redis
+ ┃ ┃ ┣ 📂otp
+ ┃ ┃ ┃ ┣ 📜record.go
+ ┃ ┃ ┃ ┗ 📜redis.go
+ ┃ ┃ ┗ 📜redis.go
  ┃ ┗ 📜domain_factory.go
  ┣ 📂mariadb
  ┃ ┗ 📜schema.sql
  ┣ 📂tmp
  ┃ ┗ 📜main
  ┣ 📂utils
+ ┃ ┣ 📜const.go
+ ┃ ┣ 📜otp.go
+ ┃ ┣ 📜slug.go
  ┃ ┗ 📜utils.go
  ┣ 📜.air.toml
  ┣ 📜.env
