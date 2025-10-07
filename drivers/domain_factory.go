@@ -1,32 +1,32 @@
 package drivers
 
 import (
-	categoryDomain "github.com/amdrx480/go-lms/businesses/categories"
-	categoryDB "github.com/amdrx480/go-lms/drivers/mysql/categories"
+	categoryDomain "github.com/amdrx480/angsana-boga/businesses/categories"
+	categoryDB "github.com/amdrx480/angsana-boga/drivers/mysql/categories"
 
-	chapterDomain "github.com/amdrx480/go-lms/businesses/chapters"
-	chapterDB "github.com/amdrx480/go-lms/drivers/mysql/chapters"
+	chapterDomain "github.com/amdrx480/angsana-boga/businesses/chapters"
+	chapterDB "github.com/amdrx480/angsana-boga/drivers/mysql/chapters"
 
-	courseDomain "github.com/amdrx480/go-lms/businesses/courses"
-	courseDB "github.com/amdrx480/go-lms/drivers/mysql/courses"
+	courseDomain "github.com/amdrx480/angsana-boga/businesses/courses"
+	courseDB "github.com/amdrx480/angsana-boga/drivers/mysql/courses"
 
-	documentDomain "github.com/amdrx480/go-lms/businesses/documents"
-	documentDB "github.com/amdrx480/go-lms/drivers/mysql/documents"
+	documentDomain "github.com/amdrx480/angsana-boga/businesses/documents"
+	documentDB "github.com/amdrx480/angsana-boga/drivers/mysql/documents"
 
-	enrollmentDomain "github.com/amdrx480/go-lms/businesses/enrollments"
-	enrollmentDB "github.com/amdrx480/go-lms/drivers/mysql/enrollments"
+	enrollmentDomain "github.com/amdrx480/angsana-boga/businesses/enrollments"
+	enrollmentDB "github.com/amdrx480/angsana-boga/drivers/mysql/enrollments"
 
-	lessonDomain "github.com/amdrx480/go-lms/businesses/lessons"
-	lessonDB "github.com/amdrx480/go-lms/drivers/mysql/lessons"
+	lessonDomain "github.com/amdrx480/angsana-boga/businesses/lessons"
+	lessonDB "github.com/amdrx480/angsana-boga/drivers/mysql/lessons"
 
-	moduleDomain "github.com/amdrx480/go-lms/businesses/modules"
-	moduleDB "github.com/amdrx480/go-lms/drivers/mysql/modules"
+	moduleDomain "github.com/amdrx480/angsana-boga/businesses/modules"
+	moduleDB "github.com/amdrx480/angsana-boga/drivers/mysql/modules"
 
-	otpDomain "github.com/amdrx480/go-lms/businesses/otp"
-	otpDB "github.com/amdrx480/go-lms/drivers/redis/otp"
+	otpDomain "github.com/amdrx480/angsana-boga/businesses/otp"
+	otpDB "github.com/amdrx480/angsana-boga/drivers/redis/otp"
 
-	userDomain "github.com/amdrx480/go-lms/businesses/users"
-	userDB "github.com/amdrx480/go-lms/drivers/mysql/users"
+	userDomain "github.com/amdrx480/angsana-boga/businesses/users"
+	userDB "github.com/amdrx480/angsana-boga/drivers/mysql/users"
 
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"

@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/amdrx480/go-lms/businesses/otp"
-	"github.com/amdrx480/go-lms/controllers"
-	"github.com/amdrx480/go-lms/controllers/otp/request"
+	"github.com/amdrx480/angsana-boga/businesses/otp"
+	"github.com/amdrx480/angsana-boga/controllers"
+	"github.com/amdrx480/angsana-boga/controllers/otp/request"
 
 	"github.com/labstack/echo/v4"
 )

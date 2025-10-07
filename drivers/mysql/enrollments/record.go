@@ -3,9 +3,9 @@ package enrollments
 import (
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/enrollments"
-	_coursesDB "github.com/amdrx480/go-lms/drivers/mysql/courses"
-	"github.com/amdrx480/go-lms/drivers/mysql/users"
+	"github.com/amdrx480/angsana-boga/businesses/enrollments"
+	_coursesDB "github.com/amdrx480/angsana-boga/drivers/mysql/courses"
+	"github.com/amdrx480/angsana-boga/drivers/mysql/users"
 
 	"gorm.io/gorm"
 )

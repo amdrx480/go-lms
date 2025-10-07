@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/users"
+	"github.com/amdrx480/angsana-boga/businesses/users"
 )
 
 type Domain struct {

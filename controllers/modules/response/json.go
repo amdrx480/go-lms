@@ -3,8 +3,8 @@ package response
 import (
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/modules"
-	_chaptersResponse "github.com/amdrx480/go-lms/controllers/chapters/response"
+	"github.com/amdrx480/angsana-boga/businesses/modules"
+	_chaptersResponse "github.com/amdrx480/angsana-boga/controllers/chapters/response"
 
 	"gorm.io/gorm"
 )

@@ -3,7 +3,7 @@ package chapters
 import (
 	"context"
 
-	"github.com/amdrx480/go-lms/businesses/chapters"
+	"github.com/amdrx480/angsana-boga/businesses/chapters"
 
 	"gorm.io/gorm"
 )

@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/amdrx480/go-lms/app/middlewares"
-	"github.com/amdrx480/go-lms/businesses/users"
-	"github.com/amdrx480/go-lms/utils"
+	"github.com/amdrx480/angsana-boga/app/middlewares"
+	"github.com/amdrx480/angsana-boga/businesses/users"
+	"github.com/amdrx480/angsana-boga/utils"
 )
 
 type OTPUseCase struct {

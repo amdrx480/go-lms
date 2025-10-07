@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/amdrx480/go-lms/businesses/enrollments"
-	"github.com/amdrx480/go-lms/controllers"
-	"github.com/amdrx480/go-lms/controllers/enrollments/request"
-	"github.com/amdrx480/go-lms/controllers/enrollments/response"
+	"github.com/amdrx480/angsana-boga/businesses/enrollments"
+	"github.com/amdrx480/angsana-boga/controllers"
+	"github.com/amdrx480/angsana-boga/controllers/enrollments/request"
+	"github.com/amdrx480/angsana-boga/controllers/enrollments/response"
 	"gorm.io/gorm"
 
 	"github.com/labstack/echo/v4"

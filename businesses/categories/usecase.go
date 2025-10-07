@@ -3,7 +3,7 @@ package categories
 import (
 	"context"
 
-	"github.com/amdrx480/go-lms/utils"
+	"github.com/amdrx480/angsana-boga/utils"
 )
 
 type categoryUseCase struct {

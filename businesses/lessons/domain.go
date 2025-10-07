@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/documents"
+	"github.com/amdrx480/angsana-boga/businesses/documents"
 	"gorm.io/gorm"
 )
 

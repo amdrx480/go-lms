@@ -1,8 +1,8 @@
 package modules
 
 import (
-	"github.com/amdrx480/go-lms/businesses/modules"
-	_chaptersDB "github.com/amdrx480/go-lms/drivers/mysql/chapters"
+	"github.com/amdrx480/angsana-boga/businesses/modules"
+	_chaptersDB "github.com/amdrx480/angsana-boga/drivers/mysql/chapters"
 
 	"time"
 

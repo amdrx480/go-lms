@@ -1,8 +1,8 @@
 package lessons
 
 import (
-	"github.com/amdrx480/go-lms/businesses/lessons"
-	_documentsDB "github.com/amdrx480/go-lms/drivers/mysql/documents"
+	"github.com/amdrx480/angsana-boga/businesses/lessons"
+	_documentsDB "github.com/amdrx480/angsana-boga/drivers/mysql/documents"
 
 	"time"
 

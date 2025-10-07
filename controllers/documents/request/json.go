@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/amdrx480/go-lms/businesses/documents"
+	"github.com/amdrx480/angsana-boga/businesses/documents"
 	"github.com/go-playground/validator/v10"
 )
 

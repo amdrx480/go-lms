@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/amdrx480/go-lms/app/middlewares"
+	"github.com/amdrx480/angsana-boga/app/middlewares"
 )
 
 type userUseCase struct {

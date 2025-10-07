@@ -3,10 +3,10 @@ package courses
 import (
 	"strconv"
 
-	"github.com/amdrx480/go-lms/businesses/courses"
-	"github.com/amdrx480/go-lms/controllers"
-	"github.com/amdrx480/go-lms/controllers/courses/request"
-	"github.com/amdrx480/go-lms/controllers/courses/response"
+	"github.com/amdrx480/angsana-boga/businesses/courses"
+	"github.com/amdrx480/angsana-boga/controllers"
+	"github.com/amdrx480/angsana-boga/controllers/courses/request"
+	"github.com/amdrx480/angsana-boga/controllers/courses/response"
 
 	"net/http"
 

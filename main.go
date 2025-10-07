@@ -10,41 +10,41 @@ import (
 	"syscall"
 	"time"
 
-	_driverFactory "github.com/amdrx480/go-lms/drivers"
-	"github.com/amdrx480/go-lms/utils"
+	_driverFactory "github.com/amdrx480/angsana-boga/drivers"
+	"github.com/amdrx480/angsana-boga/utils"
 
-	_categoryUseCase "github.com/amdrx480/go-lms/businesses/categories"
-	_categoryController "github.com/amdrx480/go-lms/controllers/categories"
+	_categoryUseCase "github.com/amdrx480/angsana-boga/businesses/categories"
+	_categoryController "github.com/amdrx480/angsana-boga/controllers/categories"
 
-	_chapterUseCase "github.com/amdrx480/go-lms/businesses/chapters"
-	_chapterController "github.com/amdrx480/go-lms/controllers/chapters"
+	_chapterUseCase "github.com/amdrx480/angsana-boga/businesses/chapters"
+	_chapterController "github.com/amdrx480/angsana-boga/controllers/chapters"
 
-	_courseUseCase "github.com/amdrx480/go-lms/businesses/courses"
-	_courseController "github.com/amdrx480/go-lms/controllers/courses"
+	_courseUseCase "github.com/amdrx480/angsana-boga/businesses/courses"
+	_courseController "github.com/amdrx480/angsana-boga/controllers/courses"
 
-	_documentUseCase "github.com/amdrx480/go-lms/businesses/documents"
-	_documentController "github.com/amdrx480/go-lms/controllers/documents"
+	_documentUseCase "github.com/amdrx480/angsana-boga/businesses/documents"
+	_documentController "github.com/amdrx480/angsana-boga/controllers/documents"
 
-	_enrollmentUseCase "github.com/amdrx480/go-lms/businesses/enrollments"
-	_enrollmentController "github.com/amdrx480/go-lms/controllers/enrollments"
+	_enrollmentUseCase "github.com/amdrx480/angsana-boga/businesses/enrollments"
+	_enrollmentController "github.com/amdrx480/angsana-boga/controllers/enrollments"
 
-	_lessonUseCase "github.com/amdrx480/go-lms/businesses/lessons"
-	_lessonController "github.com/amdrx480/go-lms/controllers/lessons"
+	_lessonUseCase "github.com/amdrx480/angsana-boga/businesses/lessons"
+	_lessonController "github.com/amdrx480/angsana-boga/controllers/lessons"
 
-	_moduleUseCase "github.com/amdrx480/go-lms/businesses/modules"
-	_moduleController "github.com/amdrx480/go-lms/controllers/modules"
+	_moduleUseCase "github.com/amdrx480/angsana-boga/businesses/modules"
+	_moduleController "github.com/amdrx480/angsana-boga/controllers/modules"
 
-	_otpUseCase "github.com/amdrx480/go-lms/businesses/otp"
-	_otpController "github.com/amdrx480/go-lms/controllers/otp"
+	_otpUseCase "github.com/amdrx480/angsana-boga/businesses/otp"
+	_otpController "github.com/amdrx480/angsana-boga/controllers/otp"
 
-	_userUseCase "github.com/amdrx480/go-lms/businesses/users"
-	_userController "github.com/amdrx480/go-lms/controllers/users"
+	_userUseCase "github.com/amdrx480/angsana-boga/businesses/users"
+	_userController "github.com/amdrx480/angsana-boga/controllers/users"
 
-	_dbDriver "github.com/amdrx480/go-lms/drivers/mysql"
-	_redisDriver "github.com/amdrx480/go-lms/drivers/redis"
+	_dbDriver "github.com/amdrx480/angsana-boga/drivers/mysql"
+	_redisDriver "github.com/amdrx480/angsana-boga/drivers/redis"
 
-	_middleware "github.com/amdrx480/go-lms/app/middlewares"
-	_routes "github.com/amdrx480/go-lms/app/routes"
+	_middleware "github.com/amdrx480/angsana-boga/app/middlewares"
+	_routes "github.com/amdrx480/angsana-boga/app/routes"
 
 	echo "github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

@@ -3,7 +3,7 @@ package modules
 import (
 	"context"
 
-	"github.com/amdrx480/go-lms/businesses/modules"
+	"github.com/amdrx480/angsana-boga/businesses/modules"
 
 	"gorm.io/gorm"
 )

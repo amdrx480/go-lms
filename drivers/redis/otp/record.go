@@ -3,7 +3,7 @@ package otp
 import (
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/otp"
+	"github.com/amdrx480/angsana-boga/businesses/otp"
 )
 
 type OTP struct {

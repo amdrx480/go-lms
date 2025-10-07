@@ -3,7 +3,7 @@ package courses
 import (
 	"context"
 
-	"github.com/amdrx480/go-lms/businesses/courses"
+	"github.com/amdrx480/angsana-boga/businesses/courses"
 
 	"gorm.io/gorm"
 )

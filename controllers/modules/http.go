@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/amdrx480/go-lms/businesses/modules"
-	"github.com/amdrx480/go-lms/controllers"
-	"github.com/amdrx480/go-lms/controllers/modules/request"
-	"github.com/amdrx480/go-lms/controllers/modules/response"
+	"github.com/amdrx480/angsana-boga/businesses/modules"
+	"github.com/amdrx480/angsana-boga/controllers"
+	"github.com/amdrx480/angsana-boga/controllers/modules/request"
+	"github.com/amdrx480/angsana-boga/controllers/modules/response"
 
 	"github.com/labstack/echo/v4"
 )

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/amdrx480/go-lms/app/middlewares"
-	"github.com/amdrx480/go-lms/businesses/enrollments"
+	"github.com/amdrx480/angsana-boga/app/middlewares"
+	"github.com/amdrx480/angsana-boga/businesses/enrollments"
 
 	"gorm.io/gorm"
 )

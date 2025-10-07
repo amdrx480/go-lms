@@ -1,16 +1,16 @@
 package routes
 
 import (
-	"github.com/amdrx480/go-lms/app/middlewares"
-	"github.com/amdrx480/go-lms/controllers/categories"
-	"github.com/amdrx480/go-lms/controllers/chapters"
-	"github.com/amdrx480/go-lms/controllers/courses"
-	"github.com/amdrx480/go-lms/controllers/documents"
-	"github.com/amdrx480/go-lms/controllers/enrollments"
-	"github.com/amdrx480/go-lms/controllers/lessons"
-	"github.com/amdrx480/go-lms/controllers/modules"
-	"github.com/amdrx480/go-lms/controllers/otp"
-	"github.com/amdrx480/go-lms/controllers/users"
+	"github.com/amdrx480/angsana-boga/app/middlewares"
+	"github.com/amdrx480/angsana-boga/controllers/categories"
+	"github.com/amdrx480/angsana-boga/controllers/chapters"
+	"github.com/amdrx480/angsana-boga/controllers/courses"
+	"github.com/amdrx480/angsana-boga/controllers/documents"
+	"github.com/amdrx480/angsana-boga/controllers/enrollments"
+	"github.com/amdrx480/angsana-boga/controllers/lessons"
+	"github.com/amdrx480/angsana-boga/controllers/modules"
+	"github.com/amdrx480/angsana-boga/controllers/otp"
+	"github.com/amdrx480/angsana-boga/controllers/users"
 
 	echojwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"

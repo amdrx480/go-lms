@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/otp"
+	"github.com/amdrx480/angsana-boga/businesses/otp"
 	"github.com/redis/go-redis/v9"
 )
 

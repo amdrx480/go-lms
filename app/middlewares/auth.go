@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/amdrx480/go-lms/utils"
+	"github.com/amdrx480/angsana-boga/utils"
 	"github.com/golang-jwt/jwt/v4"
 	echojwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"

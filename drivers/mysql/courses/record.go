@@ -3,9 +3,9 @@ package courses
 import (
 	"time"
 
-	"github.com/amdrx480/go-lms/businesses/courses"
-	_categoriesDB "github.com/amdrx480/go-lms/drivers/mysql/categories"
-	_modulesDB "github.com/amdrx480/go-lms/drivers/mysql/modules"
+	"github.com/amdrx480/angsana-boga/businesses/courses"
+	_categoriesDB "github.com/amdrx480/angsana-boga/drivers/mysql/categories"
+	_modulesDB "github.com/amdrx480/angsana-boga/drivers/mysql/modules"
 
 	"gorm.io/gorm"
 )
